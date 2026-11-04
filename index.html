@@ -103,10 +103,24 @@
             backdrop-filter: blur(10px);
         }
 
-        .uptime-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
-        .uptime-dot { color: #00ff88; text-shadow: 0 0 8px #00ff88; }
+        .uptime-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; }
+        .uptime-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+        .dot-online { background: #00ff88; box-shadow: 0 0 8px #00ff88; animation: pulse 2s infinite; }
+        .dot-offline { background: #ff4444; box-shadow: 0 0 8px #ff4444; }
+        .dot-checking { background: #ffcc00; box-shadow: 0 0 8px #ffcc00; animation: blink 1s infinite; }
+        
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 0 8px #00ff88; }
+            50% { box-shadow: 0 0 15px #00ff88, 0 0 25px #00ff88; }
+        }
+        @keyframes blink {
+            0%,100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
         .server-country { display: flex; align-items: center; gap: 6px; }
         .flag { font-size: 20px; }
+        .last-check { font-size: 11px; opacity: 0.5; margin-top: 4px; }
 
         .protocols-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
         .proto-tag {
@@ -243,13 +257,14 @@
 
         <div class="status-card">
             <div class="uptime-row">
-                <div><span class="uptime-dot">●</span> UPTIME</div>
+                <div><span id="status-dot" class="uptime-dot dot-checking"></span> UPTIME</div>
                 <div>SERVER COUNTRY</div>
             </div>
             <div class="uptime-row">
-                <div id="uptime">Online</div>
+                <div id="uptime-text">Checking...</div>
                 <div class="server-country"><span class="flag">🇸🇬</span> Singapore</div>
             </div>
+            <div class="last-check" id="last-check">Last checked: --:--:--</div>
             <div class="protocols-row">
                 <span class="proto-tag" style="color:#ff6b8b">● VLESS 1</span>
                 <span class="proto-tag" style="color:#ffd166">● VMess 1</span>
@@ -320,7 +335,7 @@ vmess://eyJhZGQiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJh
                 <option>HTTP/2</option>
             </select>
             <div class="link-box" id="trojan-link">
-trojan://Billy@master-34687026623.asia-southeast1.run.app:443?host=master-34687026623.asia-southeast1.run.app&type=ws&security=tls&path=%2Fmaster-trojan&sni=firebaseremoteconfigrealtime.googleapis.com
+trojan://Billy@master-34687026623.asia-southeast1.run.app:443?path=%2Fmaster-trojan&type=ws&security=tls&sni=master-34687026623.asia-southeast1.run.app&host=master-34687026623.asia-southeast1.run.app
             </div>
             <button class="copy-btn" onclick="copyLink('trojan-link', this)">📋 Copy Link</button>
         </div>
@@ -347,36 +362,10 @@ ss://YWVzLTI1Ni1nY206MTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwQG1hc3Rlci0
     </div>
 
     <script>
-        function copyLink(linkId, btn) {
-            const linkText = document.getElementById(linkId).innerText.trim();
-            
-            navigator.clipboard.writeText(linkText).then(() => {
-                // Change button appearance
-                btn.textContent = '✅ Copied!';
-                btn.classList.add('copied');
-                
-                // Reset after 2 seconds
-                setTimeout(() => {
-                    btn.textContent = '📋 Copy Link';
-                    btn.classList.remove('copied');
-                }, 2000);
-            }).catch(() => {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = linkText;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                
-                btn.textContent = '✅ Copied!';
-                btn.classList.add('copied');
-                setTimeout(() => {
-                    btn.textContent = '📋 Copy Link';
-                    btn.classList.remove('copied');
-                }, 2000);
-            });
-        }
-    </script>
-</body>
-</html>
+        // ===== SERVER UPTIME CHECKER =====
+        const SERVER_URL = 'https://master-34687026623.asia-southeast1.run.app';
+        
+        async function checkServerStatus() {
+            const dot = document.getElementById('status-dot');
+            const text = document.getElementById('uptime-text');
+            const lastCheck =
