@@ -48,32 +48,16 @@
             width: 300px; height: 300px;
             background: #00ffff;
             top: 10%; right: 5%;
-            animation: float1 8s ease-in-out infinite;
         }
         .orb-2 {
             width: 250px; height: 250px;
             background: #ff00ff;
             bottom: 10%; left: 5%;
-            animation: float2 10s ease-in-out infinite;
         }
         .orb-3 {
             width: 200px; height: 200px;
             background: #00ff88;
             top: 50%; left: 50%;
-            animation: float3 12s ease-in-out infinite;
-        }
-
-        @keyframes float1 {
-            0%,100% { transform: translate(0,0); }
-            50% { transform: translate(-30px, 40px); }
-        }
-        @keyframes float2 {
-            0%,100% { transform: translate(0,0); }
-            50% { transform: translate(40px, -30px); }
-        }
-        @keyframes float3 {
-            0%,100% { transform: translate(-50%,-50%) scale(1); }
-            50% { transform: translate(-50%,-50%) scale(1.2); }
         }
 
         .container { max-width: 450px; margin: 0 auto; position: relative; z-index: 1; }
@@ -103,24 +87,10 @@
             backdrop-filter: blur(10px);
         }
 
-        .uptime-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; }
-        .uptime-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
-        .dot-online { background: #00ff88; box-shadow: 0 0 8px #00ff88; animation: pulse 2s infinite; }
-        .dot-offline { background: #ff4444; box-shadow: 0 0 8px #ff4444; }
-        .dot-checking { background: #ffcc00; box-shadow: 0 0 8px #ffcc00; animation: blink 1s infinite; }
-        
-        @keyframes pulse {
-            0%,100% { box-shadow: 0 0 8px #00ff88; }
-            50% { box-shadow: 0 0 15px #00ff88, 0 0 25px #00ff88; }
-        }
-        @keyframes blink {
-            0%,100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
+        .uptime-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .uptime-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; background: #00ff88; box-shadow: 0 0 8px #00ff88; }
         .server-country { display: flex; align-items: center; gap: 6px; }
         .flag { font-size: 20px; }
-        .last-check { font-size: 11px; opacity: 0.5; margin-top: 4px; }
 
         .protocols-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
         .proto-tag {
@@ -140,13 +110,6 @@
             background-size: 200% auto;
             -webkit-background-clip: text;
             color: transparent;
-            animation: neonShine 3s linear infinite;
-            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
-        }
-
-        @keyframes neonShine {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
         }
 
         .info-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; justify-content: center; }
@@ -167,45 +130,17 @@
             border: 1px solid rgba(255, 0, 255, 0.2);
             box-shadow: 0 0 15px rgba(255, 0, 255, 0.08), inset 0 0 15px rgba(255, 0, 255, 0.03);
             backdrop-filter: blur(10px);
-            transition: 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: rgba(0, 255, 255, 0.4);
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
-            transform: translateY(-2px);
         }
 
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .protocol-name { font-size: 22px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .protocol-name { font-size: 18px; font-weight: bold; }
         .badge { 
             background: linear-gradient(90deg, #ff00ff, #8800ff);
             color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px;
-            box-shadow: 0 0 8px rgba(255, 0, 255, 0.4);
         }
-        .badge-vmess { 
-            background: linear-gradient(90deg, #ffcc00, #ff8800);
-            box-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
-        }
-        .badge-trojan { 
-            background: linear-gradient(90deg, #8800ff, #ff00ff);
-            box-shadow: 0 0 8px rgba(136, 0, 255, 0.4);
-        }
-        .badge-ss { 
-            background: linear-gradient(90deg, #00ffcc, #00ff88);
-            box-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
-        }
-
-        .mode-select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            background: rgba(0, 0, 0, 0.5);
-            color: #00ffff;
-            margin: 12px 0;
-            outline: none;
-        }
+        .badge-trojan { background: linear-gradient(90deg, #8800ff, #ff00ff); }
+        .badge-vmess { background: linear-gradient(90deg, #ffcc00, #ff8800); }
+        .badge-ss { background: linear-gradient(90deg, #00ffcc, #00ff88); }
 
         .link-box {
             background: rgba(0, 0, 0, 0.6);
@@ -214,10 +149,9 @@
             font-family: monospace;
             font-size: 10px;
             word-break: break-all;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             color: #00ff88;
             border: 1px solid rgba(0, 255, 136, 0.2);
-            user-select: text;
         }
 
         .copy-btn {
@@ -228,19 +162,12 @@
             border: none;
             border-radius: 6px;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-        }
-
-        .copy-btn:active {
-            transform: scale(0.97);
-            background: linear-gradient(90deg, #00ffff, #ff00ff);
         }
 
         .copy-btn.copied {
             background: linear-gradient(90deg, #00cc66, #00ff88);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
         }
     </style>
 </head>
@@ -257,14 +184,9 @@
 
         <div class="status-card">
             <div class="uptime-row">
-                <div><span id="status-dot" class="uptime-dot dot-checking"></span> UPTIME</div>
-                <div>SERVER COUNTRY</div>
-            </div>
-            <div class="uptime-row">
-                <div id="uptime-text">Checking...</div>
+                <div><span class="uptime-dot"></span> ONLINE</div>
                 <div class="server-country"><span class="flag">🇸🇬</span> Singapore</div>
             </div>
-            <div class="last-check" id="last-check">Last checked: --:--:--</div>
             <div class="protocols-row">
                 <span class="proto-tag" style="color:#ff6b8b">● VLESS 1</span>
                 <span class="proto-tag" style="color:#ffd166">● VMess 1</span>
@@ -288,17 +210,10 @@
                 <div class="protocol-name">📤 VLESS</div>
                 <span class="badge">WS · TLS</span>
             </div>
-            <p style="font-size:13px; opacity:0.7;">/master-vless</p>
-            <label style="font-size:14px; opacity:0.8;">MODE</label>
-            <select class="mode-select">
-                <option selected>Default</option>
-                <option>Packet</option>
-                <option>Stream</option>
-            </select>
-            <div class="link-box" id="vless-link">
+            <div class="link-box" id="vlessText">
 vless://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.run.app:443?encryption=none&host=master-34687026623.asia-southeast1.run.app&type=ws&security=tls&path=%2Fmaster-vless&sni=firebaseremoteconfigrealtime.googleapis.com
             </div>
-            <button class="copy-btn" onclick="copyLink('vless-link', this)">📋 Copy Link</button>
+            <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
         </div>
 
         <!-- VMess -->
@@ -307,18 +222,10 @@ vless://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.
                 <div class="protocol-name">📤 VMess</div>
                 <span class="badge badge-vmess">WS · TLS</span>
             </div>
-            <p style="font-size:13px; opacity:0.7;">/vmess</p>
-            <label style="font-size:14px; opacity:0.8;">SECURITY / ALTERID</label>
-            <select class="mode-select">
-                <option selected>auto / 0</option>
-                <option>aes-128-gcm / 0</option>
-                <option>chacha20-poly1305 / 0</option>
-                <option>none / 0</option>
-            </select>
-            <div class="link-box" id="vmess-link">
+            <div class="link-box" id="vmessText">
 vmess://eyJhZGQiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJhaWQiOjAsImhvc3QiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJpZCI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjY1NTQ0MDAwMCIsIm5ldCI6IndzIiwicGF0aCI6Ii92bWVzcyIsInBvcnQiOiI0NDMiLCJwcyI6IlRlYW1GcmVlbmV0IC0gVk1lc3MiLCJzY3kiOiJhdXRvIiwic25pIjoiZmlyZWJhc2VybW90ZWNvbmZpZ3JlYWx0aW1lLmdvb2dsZWFwaXMuY29tIiwidGxzIjoidGxzIn0=
             </div>
-            <button class="copy-btn" onclick="copyLink('vmess-link', this)">📋 Copy Link</button>
+            <button class="copy-btn" onclick="copyText('vmessText', this)">📋 Copy Link</button>
         </div>
 
         <!-- Trojan -->
@@ -327,17 +234,10 @@ vmess://eyJhZGQiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJh
                 <div class="protocol-name">🔒 Trojan</div>
                 <span class="badge badge-trojan">WS · TLS</span>
             </div>
-            <p style="font-size:13px; opacity:0.7;">/master-trojan</p>
-            <label style="font-size:14px; opacity:0.8;">TRANSPORT</label>
-            <select class="mode-select">
-                <option selected>WebSocket</option>
-                <option>gRPC</option>
-                <option>HTTP/2</option>
-            </select>
-            <div class="link-box" id="trojan-link">
+            <div class="link-box" id="trojanText">
 trojan://Billy@master-34687026623.asia-southeast1.run.app:443?path=%2Fmaster-trojan&type=ws&security=tls&sni=master-34687026623.asia-southeast1.run.app&host=master-34687026623.asia-southeast1.run.app
             </div>
-            <button class="copy-btn" onclick="copyLink('trojan-link', this)">📋 Copy Link</button>
+            <button class="copy-btn" onclick="copyText('trojanText', this)">📋 Copy Link</button>
         </div>
 
         <!-- ShadowSocks -->
@@ -346,26 +246,38 @@ trojan://Billy@master-34687026623.asia-southeast1.run.app:443?path=%2Fmaster-tro
                 <div class="protocol-name">🌊 ShadowSocks</div>
                 <span class="badge badge-ss">WS · TLS</span>
             </div>
-            <p style="font-size:13px; opacity:0.7;">/ss</p>
-            <label style="font-size:14px; opacity:0.8;">ENCRYPTION</label>
-            <select class="mode-select">
-                <option selected>aes-256-gcm</option>
-                <option>chacha20-ietf-poly1305</option>
-                <option>aes-128-gcm</option>
-                <option>xchacha20-ietf-poly1305</option>
-            </select>
-            <div class="link-box" id="ss-link">
+            <div class="link-box" id="ssText">
 ss://YWVzLTI1Ni1nY206MTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwQG1hc3Rlci0zNDY4NzAyNjYyMy5hc2lhLXNvdXRoZWFzdDEucnVuLmFwcDo0NDMjVGVhbUZyZWVuZXQtU1M=
             </div>
-            <button class="copy-btn" onclick="copyLink('ss-link', this)">📋 Copy Link</button>
+            <button class="copy-btn" onclick="copyText('ssText', this)">📋 Copy Link</button>
         </div>
     </div>
 
     <script>
-        // ===== SERVER UPTIME CHECKER =====
-        const SERVER_URL = 'https://master-34687026623.asia-southeast1.run.app';
-        
-        async function checkServerStatus() {
-            const dot = document.getElementById('status-dot');
-            const text = document.getElementById('uptime-text');
-            const lastCheck =
+        function copyText(elementId, btn) {
+            try {
+                var text = document.getElementById(elementId).innerText;
+                var temp = document.createElement('textarea');
+                temp.value = text;
+                temp.style.position = 'fixed';
+                temp.style.left = '-9999px';
+                document.body.appendChild(temp);
+                temp.select();
+                var success = document.execCommand('copy');
+                document.body.removeChild(temp);
+                
+                if (success) {
+                    btn.innerText = '✅ COPIED!';
+                    btn.classList.add('copied');
+                    setTimeout(function() {
+                        btn.innerText = '📋 Copy Link';
+                        btn.classList.remove('copied');
+                    }, 2000);
+                }
+            } catch (e) {
+                alert('Hindi nakopya, paki-highlight at copy na lang nang kamay: ' + e.message);
+            }
+        }
+    </script>
+</body>
+</html>
