@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamFreenet Panel</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0f, #1a1a2e, #0f0f1a);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: 0;
+        }
+        .orb-1 {
+            width: 300px; height: 300px;
+            background: #00ffff;
+            top: 10%; right: 5%;
+            animation: float1 8s ease-in-out infinite;
+        }
+        .orb-2 {
+            width: 250px; height: 250px;
+            background: #ff00ff;
+            bottom: 10%; left: 5%;
+            animation: float2 10s ease-in-out infinite;
+        }
+        .orb-3 {
+            width: 200px; height: 200px;
+            background: #00ff88;
+            top: 50%; left: 50%;
+            animation: float3 12s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%,100% { transform: translate(0,0); }
+            50% { transform: translate(-30px, 40px); }
+        }
+        @keyframes float2 {
+            0%,100% { transform: translate(0,0); }
+            50% { transform: translate(40px, -30px); }
+        }
+        @keyframes float3 {
+            0%,100% { transform: translate(-50%,-50%) scale(1); }
+            50% { transform: translate(-50%,-50%) scale(1.2); }
+        }
+
+        .container { max-width: 450px; margin: 0 auto; position: relative; z-index: 1; }
+
+        .header-profile { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .avatar { 
+            width: 50px; height: 50px; border-radius: 50%; 
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 15px #00ffff;
+            font-weight: bold; font-size: 18px; color: #000;
+        }
+        .name { 
+            font-size: 20px; font-weight: bold;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        .status-card {
+            background: rgba(10, 10, 20, 0.7);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 20px rgba(0, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .uptime-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .uptime-dot { color: #00ff88; text-shadow: 0 0 8px #00ff88; }
+        .server-country { display: flex; align-items: center; gap: 6px; }
+        .flag { font-size: 20px; }
+
+        .protocols-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+        .proto-tag {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 24px 0;
+            text-align: center;
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #00ff88);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: neonShine 3s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+        }
+
+        @keyframes neonShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .info-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; justify-content: center; }
+        .tag {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #00ffff;
+        }
+
+        .card {
+            background: rgba(10, 10, 20, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.08), inset 0 0 15px rgba(255, 0, 255, 0.03);
+            backdrop-filter: blur(10px);
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .protocol-name { font-size: 22px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .badge { 
+            background: linear-gradient(90deg, #ff00ff, #8800ff);
+            color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px;
+            box-shadow: 0 0 8px rgba(255, 0, 255, 0.4);
+        }
+        .badge-vmess { 
+            background: linear-gradient(90deg, #ffcc00, #ff8800);
+            box-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
+        }
+        .badge-trojan { 
+            background: linear-gradient(90deg, #8800ff, #ff00ff);
+            box-shadow: 0 0 8px rgba(136, 0, 255, 0.4);
+        }
+        .badge-ss { 
+            background: linear-gradient(90deg, #00ffcc, #00ff88);
+            box-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
+        }
+
+        .mode-select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            color: #00ffff;
+            margin: 12px 0;
+            outline: none;
+        }
+
+        .link-box {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 10px;
+            word-break: break-all;
+            margin-bottom: 16px;
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .copy-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3);
+        }
+
+        .copied-msg {
+            text-align: center;
+            margin-top: 10px;
+            color: #00ff88;
+            font-size: 14px;
+            display: none;
+            text-shadow: 0 0 8px #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="container">
+        <div class="header-profile">
+            <div class="avatar">TF</div>
+            <div class="name">TeamFreenet</div>
+        </div>
+
+        <div class="status-card">
+            <div class="uptime-row">
+                <div><span class="uptime-dot">●</span> UPTIME</div>
+                <div>SERVER COUNTRY</div>
+            </div>
+            <div class="uptime-row">
+                <div id="uptime">Online</div>
+                <div class="server-country"><span class="flag">🇹🇼</span> Taiwan</div>
+            </div>
+            <div class="protocols-row">
+                <span class="proto-tag" style="color:#ff6b8b">● VLESS 1</span>
+                <span class="proto-tag" style="color:#ffd166">● VMess 1</span>
+                <span class="proto-tag" style="color:#c792ea">● Trojan 1</span>
+                <span class="proto-tag" style="color:#80ffea">● SS 1</span>
+            </div>
+        </div>
+
+        <h1>TeamFreenet</h1>
+
+        <div class="info-tags">
+            <span class="tag">● 4 Protocols</span>
+            <span class="tag">Port 443</span>
+            <span class="tag">WebSocket</span>
+            <span class="tag">TLS</span>
+        </div>
+
+        <!-- VLESS -->
+        <div class="card">
+            <div class="card-header">
+                <div class="protocol-name">📤 VLESS</div>
+                <span class="badge">WS · TLS</span>
+            </div>
+            <p style="font-size:13px; opacity:0.7;">/master-vless</p>
+            <label style="font-size:14px; opacity:0.8;">MODE</label>
+            <select class="mode-select" id="modeSelectVless">
+                <option selected>Default</option>
+                <option>Packet</option>
+                <option>Stream</option>
+            </select>
+            <div class="link-box" id="linkVless">
+vless://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.run.app:443?encryption=none&host=master-34687026623.asia-southeast1.run.app&type=ws&security=tls&path=%2Fmaster-vless&sni=firebaseremoteconfigrealtime.googleapis.com
+            </div>
+            <button class="copy-btn" onclick="copyText('linkVless','msgVless')">📋 Copy Link</button>
+            <div class="copied-msg" id="msgVless">✅ VLESS Link Copied!</div>
+        </div>
+
+        <!-- VMess -->
+        <div class="card">
+            <div class="card-header">
+                <div class="protocol-name">📤 VMess</div>
+                <span class="badge badge-vmess">WS · TLS</span>
+            </div>
+            <p style="font-size:13px; opacity:0.7;">/vmess</p>
+            <label style="font-size:14px; opacity:0.8;">SECURITY / ALTERID</label>
+            <select class="mode-select" id="modeSelectVmess">
+                <option selected>auto / 0</option>
+                <option>aes-128-gcm / 0</option>
+                <option>chacha20-poly1305 / 0</option>
+                <option>none / 0</option>
+            </select>
+            <div class="link-box" id="linkVmess">
+vmess://eyJhZGQiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJhaWQiOjAsImhvc3QiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJpZCI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjY1NTQ0MDAwMCIsIm5ldCI6IndzIiwicGF0aCI6Ii92bWVzcyIsInBvcnQiOiI0NDMiLCJwcyI6IlRlYW1GcmVlbmV0IC0gVk1lc3MiLCJzY3kiOiJhdXRvIiwic25pIjoiZmlyZWJhc2VybW90ZWNvbmZpZ3JlYWx0aW1lLmdvb2dsZWFwaXMuY29tIiwidGxzIjoidGxzIn0=
+            </div>
+            <button class="copy-btn" onclick="copyText('linkVmess','msgVmess')">📋 Copy Link</button>
+            <div class="copied-msg" id="msgVmess">✅ VMess Link Copied!</div>
+        </div>
+
+        <!-- Trojan -->
+        <div class="card">
+            <div class="card-header">
+                <div class="protocol-name">🔒 Trojan</div>
+                <span class="badge badge-trojan">WS · TLS</span>
+            </div>
+            <p style="font-size:13px; opacity:0.7;">/trojan</p>
+            <label style="font-size:14px; opacity:0.8;">TRANSPORT</label>
+            <select class="mode-select" id="modeSelectTrojan">
+                <option selected>WebSocket</option>
+                <option>gRPC</option>
+                <option>HTTP/2</option>
+            </select>
+            <div class="link-box" id="linkTrojan">
+trojan://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.run.app:443?host=master-34687026623.asia-southeast1.run.app&type=ws&security=tls&path=%2Ftrojan&sni=firebaseremoteconfigrealtime.googleapis.com
+            </div>
+            <button class="copy-btn" onclick="copyText('linkTrojan','msgTrojan')">📋 Copy Link</button>
+            <div class="copied-msg" id="msgTrojan">✅ Trojan Link Copied!</div>
+        </div>
+
+        <!-- ShadowSocks -->
+        <div class="card">
+            <div class="card-header">
+                <div class="protocol-name">🌊 ShadowSocks</div>
+                <span class="badge badge-ss">WS · TLS</span>
+            </div>
+            <p style="font-size:13px; opacity:0.7;">/ss</p>
+            <label style="font-size:14px; opacity:0.8;">ENCRYPTION</label>
+            <select class="mode-select" id="modeSelectSS">
+                <option selected>aes-256-gcm</option>
+                <option>chacha20-ietf-poly1305</option>
+                <option>aes-128-gcm</option>
+                <option>xchacha20-ietf-poly1305</option>
+            </select>
+            <div class="link-box" id="linkSS">
+ss://YWVzLTI1Ni1nY206MTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwQG1hc3Rlci0zNDY4NzAyNjYyMy5hc2lhLXNvdXRoZWFzdDEucnVuLmFwcDo0NDMjVGVhbUZyZWVuZXQtU1M=
+            </div>
+            <button class="copy-btn" onclick="copyText('linkSS','msgSS')">📋 Copy Link</button>
+            <div class="copied-msg" id="msgSS">✅ Shadowsocks Link Copied!</div>
+        </div>
+    </div>
+
+    <script>
+        function copyText(linkId, msgId) {
+            const linkText = document.getElementById(linkId).innerText.trim();
+            navigator.clipboard.writeText(linkText).then(() => {
+                const msg = document.getElementById(msgId);
+                msg.style.display = 'block';
+                setTimeout(() => { msg.style.display = 'none'; }, 2500);
+            });
+        }
+    </script>
+</body>
+</html>
