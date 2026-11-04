@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamFreenet Panel</title>
+    <title>TeamFreenet</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
         body {
-            background: linear-gradient(135deg, #0a0a0f, #1a1a2e, #0f0f1a);
+            background: #0a0a18;
             min-height: 100vh;
             padding: 20px;
             color: white;
@@ -24,191 +24,180 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+                linear-gradient(rgba(0, 255, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.06) 1px, transparent 1px);
             background-size: 40px 40px;
-            animation: gridMove 20s linear infinite;
             pointer-events: none;
             z-index: 0;
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(40px, 40px); }
-        }
-
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-            z-index: 0;
-        }
-        .orb-1 {
-            width: 300px; height: 300px;
-            background: #00ffff;
-            top: 10%; right: 5%;
-        }
-        .orb-2 {
-            width: 250px; height: 250px;
-            background: #ff00ff;
-            bottom: 10%; left: 5%;
-        }
-        .orb-3 {
-            width: 200px; height: 200px;
-            background: #00ff88;
-            top: 50%; left: 50%;
-        }
-
         .container { max-width: 450px; margin: 0 auto; position: relative; z-index: 1; }
 
-        .header-profile { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .header-profile { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; margin-top: 10px; }
         .avatar { 
-            width: 50px; height: 50px; border-radius: 50%; 
+            width: 60px; height: 60px; border-radius: 50%; 
             background: linear-gradient(135deg, #00ffff, #ff00ff);
             display: flex; align-items: center; justify-content: center;
-            border: 2px solid #00ffff;
-            box-shadow: 0 0 15px #00ffff;
-            font-weight: bold; font-size: 18px; color: #000;
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 20px #00ffff;
+            font-weight: bold; font-size: 22px; color: #000;
         }
         .name { 
-            font-size: 20px; font-weight: bold;
+            font-size: 24px; font-weight: bold;
             color: #00ffff;
             text-shadow: 0 0 10px #00ffff;
         }
 
         .status-card {
-            background: rgba(10, 10, 20, 0.7);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 20px rgba(0, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 15, 35, 0.85);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
         }
 
-        .uptime-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
-        .uptime-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; background: #00ff88; box-shadow: 0 0 8px #00ff88; }
-        .server-country { display: flex; align-items: center; gap: 6px; }
-        .flag { font-size: 20px; }
+        .status-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .online-dot { display: flex; align-items: center; gap: 8px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 8px #00ff88; }
+        .online-text { color: #00ff88; font-weight: 600; }
+        .country { display: flex; align-items: center; gap: 6px; }
+        .flag { font-size: 22px; }
 
-        .protocols-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+        .protocols-row { display: flex; gap: 10px; flex-wrap: wrap; }
         .proto-tag {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 13px;
+            background: rgba(30, 30, 60, 0.6);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        .vless { color: #ff6b8b; }
+        .vmess { color: #ffd166; }
+        .trojan { color: #c792ea; }
+        .ss { color: #80ffea; }
 
         h1 {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: bold;
-            margin: 24px 0;
             text-align: center;
-            background: linear-gradient(90deg, #00ffff, #ff00ff, #00ff88);
+            margin: 30px 0;
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
             background-size: 200% auto;
             -webkit-background-clip: text;
+            background-clip: text;
             color: transparent;
+            animation: textGlow 3s linear infinite;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
         }
 
-        .info-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; justify-content: center; }
-        .tag {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
+        @keyframes textGlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .info-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
+        .info-tag {
+            background: rgba(30, 30, 60, 0.6);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
             color: #00ffff;
         }
 
         .card {
-            background: rgba(10, 10, 20, 0.7);
-            border-radius: 12px;
+            background: rgba(15, 15, 35, 0.85);
+            border-radius: 16px;
             padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 0, 255, 0.2);
-            box-shadow: 0 0 15px rgba(255, 0, 255, 0.08), inset 0 0 15px rgba(255, 0, 255, 0.03);
-            backdrop-filter: blur(10px);
+            margin-bottom: 25px;
+            border: 1px solid rgba(100, 100, 180, 0.2);
         }
 
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .protocol-name { font-size: 18px; font-weight: bold; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .card-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
         .badge { 
-            background: linear-gradient(90deg, #ff00ff, #8800ff);
-            color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px;
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 13px; 
+            font-weight: 600;
         }
-        .badge-trojan { background: linear-gradient(90deg, #8800ff, #ff00ff); }
-        .badge-vmess { background: linear-gradient(90deg, #ffcc00, #ff8800); }
-        .badge-ss { background: linear-gradient(90deg, #00ffcc, #00ff88); }
+        .badge-ws-tls { background: linear-gradient(90deg, #cc44ff, #6666ff); color: white; }
+        .badge-ws-tls-vmess { background: linear-gradient(90deg, #ffaa00, #ff8800); color: white; }
+        .badge-ws-tls-ss { background: linear-gradient(90deg, #00ccaa, #00ee88); color: white; }
 
         .link-box {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 12px;
-            border-radius: 6px;
+            background: #001a0a;
+            padding: 14px;
+            border-radius: 8px;
             font-family: monospace;
-            font-size: 10px;
+            font-size: 11px;
             word-break: break-all;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             color: #00ff88;
-            border: 1px solid rgba(0, 255, 136, 0.2);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            line-height: 1.5;
         }
 
         .copy-btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            background: linear-gradient(90deg, #cc44ff, #00ccff);
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 17px;
             font-weight: bold;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .copy-btn.copied {
-            background: linear-gradient(90deg, #00cc66, #00ff88);
-        }
+        .copy-btn:active { transform: scale(0.97); }
+        .copy-btn.copied { background: linear-gradient(90deg, #00aa55, #00dd77); }
     </style>
 </head>
 <body>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-
     <div class="container">
+        <!-- Header -->
         <div class="header-profile">
             <div class="avatar">TF</div>
             <div class="name">TeamFreenet</div>
         </div>
 
+        <!-- Status Card -->
         <div class="status-card">
-            <div class="uptime-row">
-                <div><span class="uptime-dot"></span> ONLINE</div>
-                <div class="server-country"><span class="flag">🇸🇬</span> Singapore</div>
+            <div class="status-top">
+                <div class="online-dot">
+                    <span class="dot"></span>
+                    <span class="online-text">ONLINE</span>
+                </div>
+                <div class="country">
+                    <span class="flag">🇸🇬</span>
+                </div>
             </div>
             <div class="protocols-row">
-                <span class="proto-tag" style="color:#ff6b8b">● VLESS 1</span>
-                <span class="proto-tag" style="color:#ffd166">● VMess 1</span>
-                <span class="proto-tag" style="color:#c792ea">● Trojan 1</span>
-                <span class="proto-tag" style="color:#80ffea">● SS 1</span>
+                <span class="proto-tag vless">● VLESS 1</span>
+                <span class="proto-tag vmess">● VMess 1</span>
+                <span class="proto-tag trojan">● Trojan 1</span>
+                <span class="proto-tag ss">● SS 1</span>
             </div>
         </div>
 
+        <!-- Title with Animation -->
         <h1>TeamFreenet</h1>
 
+        <!-- Info Tags -->
         <div class="info-tags">
-            <span class="tag">● 4 Protocols</span>
-            <span class="tag">Port 443</span>
-            <span class="tag">WebSocket</span>
-            <span class="tag">TLS</span>
+            <span class="info-tag">● 4 Protocols</span>
+            <span class="info-tag">Port 443</span>
+            <span class="info-tag">WebSocket</span>
+            <span class="info-tag">TLS</span>
         </div>
 
         <!-- VLESS -->
         <div class="card">
             <div class="card-header">
-                <div class="protocol-name">📤 VLESS</div>
-                <span class="badge">WS · TLS</span>
+                <div class="card-title">📦 VLESS</div>
+                <span class="badge badge-ws-tls">WS · TLS</span>
             </div>
             <div class="link-box" id="vlessText">
 vless://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.run.app:443?encryption=none&host=master-34687026623.asia-southeast1.run.app&type=ws&security=tls&path=%2Fmaster-vless&sni=firebaseremoteconfigrealtime.googleapis.com
@@ -219,8 +208,8 @@ vless://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.
         <!-- VMess -->
         <div class="card">
             <div class="card-header">
-                <div class="protocol-name">📤 VMess</div>
-                <span class="badge badge-vmess">WS · TLS</span>
+                <div class="card-title">📦 VMess</div>
+                <span class="badge badge-ws-tls-vmess">WS · TLS</span>
             </div>
             <div class="link-box" id="vmessText">
 vmess://eyJhZGQiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJhaWQiOjAsImhvc3QiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJpZCI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjY1NTQ0MDAwMCIsIm5ldCI6IndzIiwicGF0aCI6Ii92bWVzcyIsInBvcnQiOiI0NDMiLCJwcyI6IlRlYW1GcmVlbmV0IC0gVk1lc3MiLCJzY3kiOiJhdXRvIiwic25pIjoiZmlyZWJhc2VybW90ZWNvbmZpZ3JlYWx0aW1lLmdvb2dsZWFwaXMuY29tIiwidGxzIjoidGxzIn0=
@@ -231,8 +220,8 @@ vmess://eyJhZGQiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJh
         <!-- Trojan -->
         <div class="card">
             <div class="card-header">
-                <div class="protocol-name">🔒 Trojan</div>
-                <span class="badge badge-trojan">WS · TLS</span>
+                <div class="card-title">🔐 Trojan</div>
+                <span class="badge badge-ws-tls">WS · TLS</span>
             </div>
             <div class="link-box" id="trojanText">
 trojan://Billy@master-34687026623.asia-southeast1.run.app:443?path=%2Fmaster-trojan&type=ws&security=tls&sni=master-34687026623.asia-southeast1.run.app&host=master-34687026623.asia-southeast1.run.app
@@ -243,8 +232,8 @@ trojan://Billy@master-34687026623.asia-southeast1.run.app:443?path=%2Fmaster-tro
         <!-- ShadowSocks -->
         <div class="card">
             <div class="card-header">
-                <div class="protocol-name">🌊 ShadowSocks</div>
-                <span class="badge badge-ss">WS · TLS</span>
+                <div class="card-title">🌊 ShadowSocks</div>
+                <span class="badge badge-ws-tls-ss">WS · TLS</span>
             </div>
             <div class="link-box" id="ssText">
 ss://YWVzLTI1Ni1nY206MTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwQG1hc3Rlci0zNDY4NzAyNjYyMy5hc2lhLXNvdXRoZWFzdDEucnVuLmFwcDo0NDMjVGVhbUZyZWVuZXQtU1M=
@@ -256,12 +245,14 @@ ss://YWVzLTI1Ni1nY206MTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwQG1hc3Rlci0
     <script>
         function copyText(elementId, btn) {
             try {
-                var text = document.getElementById(elementId).innerText;
+                var text = document.getElementById(elementId).innerText.trim();
                 var temp = document.createElement('textarea');
                 temp.value = text;
                 temp.style.position = 'fixed';
                 temp.style.left = '-9999px';
+                temp.style.top = '0';
                 document.body.appendChild(temp);
+                temp.focus();
                 temp.select();
                 var success = document.execCommand('copy');
                 document.body.removeChild(temp);
@@ -273,9 +264,11 @@ ss://YWVzLTI1Ni1nY206MTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwQG1hc3Rlci0
                         btn.innerText = '📋 Copy Link';
                         btn.classList.remove('copied');
                     }, 2000);
+                } else {
+                    alert('Hindi nakopya — i-highlight at copy na lang nang kamay');
                 }
             } catch (e) {
-                alert('Hindi nakopya, paki-highlight at copy na lang nang kamay: ' + e.message);
+                alert('Error: ' + e.message);
             }
         }
     </script>
