@@ -114,7 +114,7 @@
         }
 
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .card-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .card-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
         .badge { 
             padding: 4px 12px; 
             border-radius: 20px; 
@@ -130,7 +130,7 @@
             padding: 14px;
             border-radius: 8px;
             font-family: monospace;
-            font-size: 11px;
+            font-size: 10px;
             word-break: break-all;
             margin-bottom: 15px;
             color: #00ff88;
@@ -157,13 +157,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header-profile">
             <div class="avatar">TF</div>
             <div class="name">TeamFreenet</div>
         </div>
 
-        <!-- Status Card -->
         <div class="status-card">
             <div class="status-top">
                 <div class="online-dot">
@@ -175,17 +173,15 @@
                 </div>
             </div>
             <div class="protocols-row">
-                <span class="proto-tag vless">● VLESS 1</span>
-                <span class="proto-tag vmess">● VMess 1</span>
-                <span class="proto-tag trojan">● Trojan 1</span>
-                <span class="proto-tag ss">● SS 1</span>
+                <span class="proto-tag vless">● VLESS GCP 1</span>
+                <span class="proto-tag vmess">● DATAMAX 1</span>
+                <span class="proto-tag trojan">● Trojan GCP 1</span>
+                <span class="proto-tag ss">● SSH 1</span>
             </div>
         </div>
 
-        <!-- Title with Animation -->
         <h1>TeamFreenet</h1>
 
-        <!-- Info Tags -->
         <div class="info-tags">
             <span class="info-tag">● 4 Protocols</span>
             <span class="info-tag">Port 443</span>
@@ -193,10 +189,10 @@
             <span class="info-tag">TLS</span>
         </div>
 
-        <!-- VLESS -->
+        <!-- VLESS GCP -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">📦 VLESS</div>
+                <div class="card-title">📦 VLESS GCP</div>
                 <span class="badge badge-ws-tls">WS · TLS</span>
             </div>
             <div class="link-box" id="vlessText">
@@ -205,22 +201,22 @@ vless://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.
             <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
         </div>
 
-        <!-- VMess -->
+        <!-- NETMOD SYNA DATAMAX SOCIAL BYPASS ✅ 🔐 -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">📦 VMess</div>
-                <span class="badge badge-ws-tls-vmess">WS · TLS</span>
+                <div class="card-title">🔐 NETMOD SYNA DATAMAX SOCIAL BYPASS</div>
+                <span class="badge badge-ws-tls-vmess">SSH · 80</span>
             </div>
             <div class="link-box" id="vmessText">
-vmess://eyJhZGQiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJhaWQiOjAsImhvc3QiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJpZCI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjY1NTQ0MDAwMCIsIm5ldCI6IndzIiwicGF0aCI6Ii92bWVzcyIsInBvcnQiOiI0NDMiLCJwcyI6IlRlYW1GcmVlbmV0IC0gVk1lc3MiLCJzY3kiOiJhdXRvIiwic25pIjoiZmlyZWJhc2VybW90ZWNvbmZpZ3JlYWx0aW1lLmdvb2dsZWFwaXMuY29tIiwidGxzIjoidGxzIn0=
+ssh://data:data@tiktok.teamfreenet.sbs:80?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIls9V92UQ5EEQQUjVO/wu/2SzQFgWjKDpP2//YaEwFMVhDX50YiyMmNhgtC0zRtfMVBciNxYGN7hwmqY4J/HK/ufpuzN/ezZGMzCpRuW+4Vh/YEHIJXURq6KhhLjkqm6EIDQupyOJ7uvD1BmDOMZESP1cRaiYNVMtu+JGOOFEhKVDMngB7kwU6qdcOl3FBfcYHxXWlolNH3NCE2upN44bbt30CbkkssPMHYEltybnoMm4ZP2n8CX0px6InhQPw6400N/SK/ih1W/4iof3d+SlYaO0S1cMEnkqIxVPvTx3FL0yuE8qfBJtUPvxe1ItB8xsrKBVnxUZCePB+iiFPrln2L1YHDJkb48rXw4ehcL3yI+JvtQsrTSZo7Lu//Ec4g4Q5n3+rVEnSUYO0WHu1Aeox/CsDtd7xgyaGro2xwjm5jUc10s16xtspFmb6hsnbRzz//o72CoyTLu3bU+69u5kT#DATA%20MAXX%26UNLI%20SOCIAL%20NO%20BAWAS%20BOYSUPOTPH
             </div>
             <button class="copy-btn" onclick="copyText('vmessText', this)">📋 Copy Link</button>
         </div>
 
-        <!-- Trojan -->
+        <!-- TROJAN GCP -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">🔐 Trojan</div>
+                <div class="card-title">🔐 TROJAN GCP</div>
                 <span class="badge badge-ws-tls">WS · TLS</span>
             </div>
             <div class="link-box" id="trojanText">
@@ -229,14 +225,14 @@ trojan://Billy@master-34687026623.asia-southeast1.run.app:443?path=%2Fmaster-tro
             <button class="copy-btn" onclick="copyText('trojanText', this)">📋 Copy Link</button>
         </div>
 
-        <!-- ShadowSocks -->
+        <!-- NETMOD SYNA GTM CFR -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">🌊 ShadowSocks</div>
-                <span class="badge badge-ws-tls-ss">WS · TLS</span>
+                <div class="card-title">🔐 NETMOD SYNA GTM CFR</div>
+                <span class="badge badge-ws-tls-ss">SSH · 443</span>
             </div>
             <div class="link-box" id="ssText">
-ss://YWVzLTI1Ni1nY206MTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwQG1hc3Rlci0zNDY4NzAyNjYyMy5hc2lhLXNvdXRoZWFzdDEucnVuLmFwcDo0NDMjVGVhbUZyZWVuZXQtU1M=
+ssh://free:free@13.226.71.107:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpLD5qqMMkPdOXuNSV+Au5C+o1hUBX07ZLDl7M7KCK2FKaFj+LgdFlTTjYryafIbtn+h5sCiESupQMgI/+a15UjUYVWFiJoDWdaEkMC/C7shTUjQUCiSk7ZZmewWAlhx3d1RTxYi6s6P0Qih3nMFJt2onTfkw9VGROQZ4qe29XpwppB2u6JYkWARO6AUhLnezpZ6SAB2XQsh3wZNgxomKKGUfgOd5JaJjDMz558ee7C90q7w2prdjr696W4uJinM4Qhg7byN1nTt5Q2y9hJnpS2bTT2QsQ+C+hfDlC5QUV3gfFQApl5Ix+dgQZfsHbqX0Z2TDL5tTQqBQjgwF8xSonBx4m+1CytNJmjsu7/8RziDhDmff6tUSdJRg7RYe7UB6jH8KwO13vGDJoaujbHCObmNRzXSzXrG2ykWZvqGydtHPP/+jvYKjJMu7dtT7r27mRM=#%F0%9F%87%B8%F0%9F%87%AC(SSH)NEWGTMNOLOAD%2FBOYSUPOTPH
             </div>
             <button class="copy-btn" onclick="copyText('ssText', this)">📋 Copy Link</button>
         </div>
