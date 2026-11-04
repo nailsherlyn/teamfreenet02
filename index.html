@@ -52,18 +52,22 @@
             background: rgba(15, 15, 35, 0.85);
             border-radius: 16px;
             padding: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             border: 1px solid rgba(0, 255, 255, 0.2);
         }
 
         .status-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .online-dot { display: flex; align-items: center; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 8px #00ff88; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 8px #00ff88; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 0 8px #00ff88; }
+            50% { box-shadow: 0 0 15px #00ff88, 0 0 25px #00ff88; }
+        }
         .online-text { color: #00ff88; font-weight: 600; }
         .country { display: flex; align-items: center; gap: 6px; }
         .flag { font-size: 22px; }
 
-        .protocols-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .protocols-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
         .proto-tag {
             background: rgba(30, 30, 60, 0.6);
             padding: 6px 14px;
@@ -76,11 +80,21 @@
         .trojan { color: #c792ea; }
         .ss { color: #80ffea; }
 
+        .counter-box {
+            background: rgba(20, 20, 50, 0.7);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 200, 255, 0.2);
+            text-align: center;
+        }
+        .counter-label { font-size: 13px; opacity: 0.7; margin-bottom: 8px; }
+
         h1 {
             font-size: 48px;
             font-weight: bold;
             text-align: center;
-            margin: 30px 0;
+            margin: 20px 0;
             background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -95,7 +109,7 @@
             100% { background-position: 200% center; }
         }
 
-        .info-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
+        .info-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 25px; }
         .info-tag {
             background: rgba(30, 30, 60, 0.6);
             padding: 10px 20px;
@@ -109,7 +123,7 @@
             background: rgba(15, 15, 35, 0.85);
             border-radius: 16px;
             padding: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border: 1px solid rgba(100, 100, 180, 0.2);
         }
 
@@ -166,7 +180,7 @@
             <div class="status-top">
                 <div class="online-dot">
                     <span class="dot"></span>
-                    <span class="online-text">ONLINE</span>
+                    <span class="online-text">SERVER ONLINE</span>
                 </div>
                 <div class="country">
                     <span class="flag">🇸🇬</span>
@@ -177,6 +191,16 @@
                 <span class="proto-tag vmess">● DATAMAX 1</span>
                 <span class="proto-tag trojan">● Trojan GCP 1</span>
                 <span class="proto-tag ss">● SSH 1</span>
+            </div>
+        </div>
+
+        <!-- 👇 VISITOR COUNTER - NAKALAGAY NA! -->
+        <div class="counter-box">
+            <div class="counter-label">👁️ TOTAL VISITORS</div>
+            <div style="display: flex; justify-content: center; align-items: center; padding: 5px;">
+                <a href="https://readmecodegen.com" target="_blank" rel="noopener noreferrer" style="display: inline-block; width: fit-content;">
+                    <img src="https://readmecode-pdf.onrender.com/api/badge/user_mw2gd1on_dr9wzm" alt="Visitor Badge" style="display: block; max-width: 100%; height: auto;" />
+                </a>
             </div>
         </div>
 
@@ -201,7 +225,7 @@ vless://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.
             <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
         </div>
 
-        <!-- NETMOD SYNA DATAMAX SOCIAL BYPASS ✅ 🔐 -->
+        <!-- NETMOD SYNA DATAMAX SOCIAL BYPASS -->
         <div class="card">
             <div class="card-header">
                 <div class="card-title">🔐 NETMOD SYNA DATAMAX SOCIAL BYPASS</div>
@@ -268,5 +292,8 @@ ssh://free:free@13.226.71.107:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpLD5q
             }
         }
     </script>
+
+    <!-- 👇 VISITOR TRACKER SCRIPT - NAKALAGAY NA! -->
+    <script src="https://readmecodegen.com/view-tracker.js" data-user="user_mw2gd1on_dr9wzm"></script>
 </body>
 </html>
