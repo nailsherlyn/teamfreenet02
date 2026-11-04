@@ -203,6 +203,7 @@
             margin-bottom: 16px;
             color: #00ff88;
             border: 1px solid rgba(0, 255, 136, 0.2);
+            user-select: text;
         }
 
         .copy-btn {
@@ -214,22 +215,18 @@
             border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
-            transition: 0.3s ease;
+            transition: all 0.2s ease;
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
         }
 
-        .copy-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3);
+        .copy-btn:active {
+            transform: scale(0.97);
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
         }
 
-        .copied-msg {
-            text-align: center;
-            margin-top: 10px;
-            color: #00ff88;
-            font-size: 14px;
-            display: none;
-            text-shadow: 0 0 8px #00ff88;
+        .copy-btn.copied {
+            background: linear-gradient(90deg, #00cc66, #00ff88);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
         }
     </style>
 </head>
@@ -278,16 +275,15 @@
             </div>
             <p style="font-size:13px; opacity:0.7;">/master-vless</p>
             <label style="font-size:14px; opacity:0.8;">MODE</label>
-            <select class="mode-select" id="modeSelectVless">
+            <select class="mode-select">
                 <option selected>Default</option>
                 <option>Packet</option>
                 <option>Stream</option>
             </select>
-            <div class="link-box" id="linkVless">
+            <div class="link-box" id="vless-link">
 vless://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.run.app:443?encryption=none&host=master-34687026623.asia-southeast1.run.app&type=ws&security=tls&path=%2Fmaster-vless&sni=firebaseremoteconfigrealtime.googleapis.com
             </div>
-            <button class="copy-btn" onclick="copyText('linkVless','msgVless')">📋 Copy Link</button>
-            <div class="copied-msg" id="msgVless">✅ VLESS Link Copied!</div>
+            <button class="copy-btn" onclick="copyLink('vless-link', this)">📋 Copy Link</button>
         </div>
 
         <!-- VMess -->
@@ -298,17 +294,16 @@ vless://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.
             </div>
             <p style="font-size:13px; opacity:0.7;">/vmess</p>
             <label style="font-size:14px; opacity:0.8;">SECURITY / ALTERID</label>
-            <select class="mode-select" id="modeSelectVmess">
+            <select class="mode-select">
                 <option selected>auto / 0</option>
                 <option>aes-128-gcm / 0</option>
                 <option>chacha20-poly1305 / 0</option>
                 <option>none / 0</option>
             </select>
-            <div class="link-box" id="linkVmess">
+            <div class="link-box" id="vmess-link">
 vmess://eyJhZGQiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJhaWQiOjAsImhvc3QiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJpZCI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjY1NTQ0MDAwMCIsIm5ldCI6IndzIiwicGF0aCI6Ii92bWVzcyIsInBvcnQiOiI0NDMiLCJwcyI6IlRlYW1GcmVlbmV0IC0gVk1lc3MiLCJzY3kiOiJhdXRvIiwic25pIjoiZmlyZWJhc2VybW90ZWNvbmZpZ3JlYWx0aW1lLmdvb2dsZWFwaXMuY29tIiwidGxzIjoidGxzIn0=
             </div>
-            <button class="copy-btn" onclick="copyText('linkVmess','msgVmess')">📋 Copy Link</button>
-            <div class="copied-msg" id="msgVmess">✅ VMess Link Copied!</div>
+            <button class="copy-btn" onclick="copyLink('vmess-link', this)">📋 Copy Link</button>
         </div>
 
         <!-- Trojan -->
@@ -317,18 +312,17 @@ vmess://eyJhZGQiOiJtYXN0ZXItMzQ2ODcwMjY2MjMuYXNpYS1zb3V0aGVhc3QxLnJ1bi5hcHAiLCJh
                 <div class="protocol-name">🔒 Trojan</div>
                 <span class="badge badge-trojan">WS · TLS</span>
             </div>
-            <p style="font-size:13px; opacity:0.7;">/trojan</p>
+            <p style="font-size:13px; opacity:0.7;">/master-trojan</p>
             <label style="font-size:14px; opacity:0.8;">TRANSPORT</label>
-            <select class="mode-select" id="modeSelectTrojan">
+            <select class="mode-select">
                 <option selected>WebSocket</option>
                 <option>gRPC</option>
                 <option>HTTP/2</option>
             </select>
-            <div class="link-box" id="linkTrojan">
-trojan://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.run.app:443?host=master-34687026623.asia-southeast1.run.app&type=ws&security=tls&path=%2Ftrojan&sni=firebaseremoteconfigrealtime.googleapis.com
+            <div class="link-box" id="trojan-link">
+trojan://Billy@master-34687026623.asia-southeast1.run.app:443?host=master-34687026623.asia-southeast1.run.app&type=ws&security=tls&path=%2Fmaster-trojan&sni=firebaseremoteconfigrealtime.googleapis.com
             </div>
-            <button class="copy-btn" onclick="copyText('linkTrojan','msgTrojan')">📋 Copy Link</button>
-            <div class="copied-msg" id="msgTrojan">✅ Trojan Link Copied!</div>
+            <button class="copy-btn" onclick="copyLink('trojan-link', this)">📋 Copy Link</button>
         </div>
 
         <!-- ShadowSocks -->
@@ -339,27 +333,48 @@ trojan://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1
             </div>
             <p style="font-size:13px; opacity:0.7;">/ss</p>
             <label style="font-size:14px; opacity:0.8;">ENCRYPTION</label>
-            <select class="mode-select" id="modeSelectSS">
+            <select class="mode-select">
                 <option selected>aes-256-gcm</option>
                 <option>chacha20-ietf-poly1305</option>
                 <option>aes-128-gcm</option>
                 <option>xchacha20-ietf-poly1305</option>
             </select>
-            <div class="link-box" id="linkSS">
+            <div class="link-box" id="ss-link">
 ss://YWVzLTI1Ni1nY206MTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwQG1hc3Rlci0zNDY4NzAyNjYyMy5hc2lhLXNvdXRoZWFzdDEucnVuLmFwcDo0NDMjVGVhbUZyZWVuZXQtU1M=
             </div>
-            <button class="copy-btn" onclick="copyText('linkSS','msgSS')">📋 Copy Link</button>
-            <div class="copied-msg" id="msgSS">✅ Shadowsocks Link Copied!</div>
+            <button class="copy-btn" onclick="copyLink('ss-link', this)">📋 Copy Link</button>
         </div>
     </div>
 
     <script>
-        function copyText(linkId, msgId) {
+        function copyLink(linkId, btn) {
             const linkText = document.getElementById(linkId).innerText.trim();
+            
             navigator.clipboard.writeText(linkText).then(() => {
-                const msg = document.getElementById(msgId);
-                msg.style.display = 'block';
-                setTimeout(() => { msg.style.display = 'none'; }, 2500);
+                // Change button appearance
+                btn.textContent = '✅ Copied!';
+                btn.classList.add('copied');
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy Link';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = linkText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                btn.textContent = '✅ Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy Link';
+                    btn.classList.remove('copied');
+                }, 2000);
             });
         }
     </script>
