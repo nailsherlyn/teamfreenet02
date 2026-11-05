@@ -7,160 +7,159 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
-        /* 🎌 ANIME LOADING SCREEN */
-        .loading-screen {
+        body {
+            background: #0a0a18;
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3c 50%, #0f0f23 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
         }
-        .loading-screen.fade-out { opacity: 0; visibility: hidden; }
-        .loading-title {
-            font-size: 42px; font-weight: bold;
-            background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: textShine 2s linear infinite;
-            margin-bottom: 40px;
-        }
-        @keyframes textShine { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
-        .loading-orb { position: relative; width: 100px; height: 100px; margin-bottom: 30px; }
-        .loading-orb span {
-            position: absolute; width: 100%; height: 100%; border-radius: 50%;
-            border: 4px solid transparent; border-top-color: #00ffff; border-right-color: #ff00ff;
-            animation: spin 1.2s linear infinite;
-        }
-        .loading-orb span:nth-child(2) {
-            width: 80px; height: 80px; top: 10px; left: 10px;
-            animation-duration: 0.9s; animation-direction: reverse;
-            border-top-color: #ff00ff; border-right-color: #00ffff;
-        }
-        .loading-orb span:nth-child(3) {
-            width: 60px; height: 60px; top: 20px; left: 20px;
-            animation-duration: 0.7s;
-            border-top-color: #00ffff; border-right-color: #ff00ff;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loading-text { font-size: 18px; color: #a0a0ff; letter-spacing: 3px; }
-        .loading-dots::after { content: ''; animation: dots 1.5s steps(4, end) infinite; }
-        @keyframes dots { 0%,20%{content:'';} 40%{content:'.';} 60%{content:'..';} 80%,100%{content:'...';} }
-        .stars { position: absolute; width: 100%; height: 100%; overflow: hidden; }
-        .stars span {
-            position: absolute; width: 3px; height: 3px; background: white; border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-        @keyframes twinkle { 0%,100%{opacity:0.2;} 50%{opacity:1;} }
 
-        /* MAIN PAGE */
-        body {
-            background: #0a0a18; min-height: 100vh; padding: 20px; padding-bottom: 30px;
-            color: white; position: relative; overflow-x: hidden;
-        }
-        body::before {
-            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0,255,255,0.06) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0,255,255,0.06) 1px, transparent 1px);
-            background-size: 40px 40px; pointer-events: none; z-index: 0;
-        }
         .container { max-width: 450px; margin: 0 auto; position: relative; z-index: 1; }
+
         .header-profile { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; margin-top: 10px; }
-        .avatar {
-            width: 60px; height: 60px; border-radius: 50%;
+        .avatar { 
+            width: 60px; height: 60px; border-radius: 50%; 
             background: linear-gradient(135deg, #00ffff, #ff00ff);
             display: flex; align-items: center; justify-content: center;
-            border: 3px solid #00ffff; box-shadow: 0 0 20px #00ffff;
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 20px #00ffff;
             font-weight: bold; font-size: 22px; color: #000;
         }
-        .name { font-size: 24px; font-weight: bold; color: #00ffff; text-shadow: 0 0 10px #00ffff; }
-        .status-card {
-            background: rgba(15,15,35,0.85); border-radius: 16px; padding: 20px;
-            margin-bottom: 20px; border: 1px solid rgba(0,255,255,0.2);
+        .name { 
+            font-size: 24px; font-weight: bold;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
         }
+
+        .status-card {
+            background: rgba(15, 15, 35, 0.85);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
         .status-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .online-dot { display: flex; align-items: center; gap: 8px; }
-        .dot {
-            width: 12px; height: 12px; border-radius: 50%; background: #00ff88;
-            box-shadow: 0 0 8px #00ff88; animation: pulse 2s infinite;
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 8px #00ff88; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 0 8px #00ff88; }
+            50% { box-shadow: 0 0 15px #00ff88, 0 0 25px #00ff88; }
         }
-        @keyframes pulse { 0%,100%{box-shadow:0 0 8px #00ff88;} 50%{box-shadow:0 0 15px #00ff88,0 0 25px #00ff88;} }
         .online-text { color: #00ff88; font-weight: 600; }
         .country { display: flex; align-items: center; gap: 6px; }
         .flag { font-size: 22px; }
+
         .protocols-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 0; }
         .proto-tag {
-            background: rgba(30,30,60,0.6); padding: 6px 14px; border-radius: 20px;
-            font-size: 14px; border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(30, 30, 60, 0.6);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .vless { color: #ff6b8b; }
         .vmess { color: #ffd166; }
         .trojan { color: #c792ea; }
         .ss { color: #80ffea; }
+
         h1 {
-            font-size: 48px; font-weight: bold; text-align: center; margin: 20px 0;
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
             background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: textGlow 3s linear infinite;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
         }
-        @keyframes textGlow { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+
+        @keyframes textGlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
         .info-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 25px; }
         .info-tag {
-            background: rgba(30,30,60,0.6); padding: 10px 20px; border-radius: 8px;
-            font-size: 15px; border: 1px solid rgba(0,255,255,0.2); color: #00ffff;
+            background: rgba(30, 30, 60, 0.6);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: #00ffff;
         }
+
         .card {
-            background: rgba(15,15,35,0.85); border-radius: 16px; padding: 20px;
-            margin-bottom: 20px; border: 1px solid rgba(100,100,180,0.2);
+            background: rgba(15, 15, 35, 0.85);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(100, 100, 180, 0.2);
         }
+
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .card-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .badge {
-            padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;
+        .badge { 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 13px; 
+            font-weight: 600;
         }
         .badge-ws-tls { background: linear-gradient(90deg, #cc44ff, #6666ff); color: white; }
         .badge-ws-tls-vmess { background: linear-gradient(90deg, #ffaa00, #ff8800); color: white; }
         .badge-ws-tls-ss { background: linear-gradient(90deg, #00ccaa, #00ee88); color: white; }
+
         .link-box {
-            background: #001a0a; padding: 14px; border-radius: 8px;
-            font-family: monospace; font-size: 10px; word-break: break-all;
-            margin-bottom: 15px; color: #00ff88;
-            border: 1px solid rgba(0,255,136,0.25); line-height: 1.5;
+            background: #001a0a;
+            padding: 14px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 10px;
+            word-break: break-all;
+            margin-bottom: 15px;
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            line-height: 1.5;
         }
+
         .copy-btn {
-            width: 100%; padding: 14px;
+            width: 100%;
+            padding: 14px;
             background: linear-gradient(90deg, #cc44ff, #00ccff);
-            color: white; border: none; border-radius: 10px;
-            font-size: 17px; font-weight: bold; cursor: pointer;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
             transition: all 0.2s ease;
         }
+
         .copy-btn:active { transform: scale(0.97); }
         .copy-btn.copied { background: linear-gradient(90deg, #00aa55, #00dd77); }
     </style>
 </head>
 <body>
-    <!-- 🎌 LOADING SCREEN -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="stars" id="starsContainer"></div>
-        <h2 class="loading-title">TeamFreenet</h2>
-        <div class="loading-orb">
-            <span></span><span></span><span></span>
-        </div>
-        <p class="loading-text">Loading<span class="loading-dots"></span></p>
-    </div>
-
-    <!-- MAIN CONTENT -->
     <div class="container">
         <div class="header-profile">
             <div class="avatar">TF</div>
@@ -173,7 +172,9 @@
                     <span class="dot"></span>
                     <span class="online-text">SERVER ONLINE</span>
                 </div>
-                <div class="country"><span class="flag">🇸🇬</span></div>
+                <div class="country">
+                    <span class="flag">🇸🇬</span>
+                </div>
             </div>
             <div class="protocols-row">
                 <span class="proto-tag vless">● VLESS GCP 1</span>
@@ -204,7 +205,7 @@ vless://123e4567-e89b-12d3-a456-426655440000@master-34687026623.asia-southeast1.
             <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
         </div>
 
-        <!-- NETMOD SYNA DATAMAX -->
+        <!-- NETMOD SYNA DATAMAX SOCIAL BYPASS -->
         <div class="card">
             <div class="card-header">
                 <div class="card-title">🔐 NETMOD SYNA DATAMAX</div>
@@ -240,43 +241,48 @@ ssh://free:free@13.226.71.107:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpLD5q
             <button class="copy-btn" onclick="copyText('ssText', this)">📋 Copy Link</button>
         </div>
 
-        <!-- NETMOD SYNA CF STS -->
+        <!-- ✅ BAGONG LINK - NETMOD SYNA CF STS -->
         <div class="card">
             <div class="card-header">
                 <div class="card-title">🔐 NETMOD SYNA CF STS</div>
                 <span class="badge badge-ws-tls-ss">SSH · 443</span>
             </div>
             <div class="link-box" id="cfstsText">
-ssh://sudo:sudo@www.mypocketdoctor.com:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIHl/GyXRQVayvTw7BFsPuoXqHE9dswLuALeabPrg16Ofy+Y0ln1QKp2bF3LtVYE0eeE0rcYmiPwR2eEkUcYi6alcXakHl8lCeLWjEcpF322VzVzSs3qTU5VUiKGOvGdOmHaYakHl8lCeLWjEcpF322VzVzSs3qTU5VUiKGOvGdOmHaYauMoh9HXV9tyIQtt6t3ZpvFRWhdk4qs8J8rvgwuCpztMx6DpYzXqOugSJATsh3eh+PtEjWtgXCW61V6Jn/bFpxHzRZjsZy+9DofzCklZfuTJtXViUhY67V4NAqZT/a3N6P6eSqVnMuPoS8QqPFIWsybTsXmXYQXTiq4lRhN5xUpoM21psW+uW1x5kMt556YMhWVS2KUuY4hgnSD0C5KJ3hBc6vyN5J1Msfcpi89sxMq+EWTTAhmSHlGkpCrm3HVdYl5a6iPIteI+cFldLEAWGrrjDfpqO7qM/yMZAwgqd8o1aXu4lkigrBHn0WTgT9KRl5Jq6kBhg8KS+IZVi4K4LMtzNOhhE2jRxF78P+sqb4vRnpkiYBDICn9DjRVneMvVXlRDqcxKTFYLfWdxkbq7oVK7MkXBVY8yy66rRmeHdV05rv8eSWdgY+DfenODhA=
+ssh://sudo:sudo@www.mypocketdoctor.com:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIHl/GyXRQVayvTw7BFsPuoXqHE9dswLuALeabPrg16Ofy+Y0ln1QKp2bF3LtVYE0eeE0rcYmiPwR2eEkUcYi6alcXakHl8lCeLWjEcpF322VzVzSs3qTU5VUiKGOvGdOmHaYuMoh9HXV9tyIQtt6t3ZpvFRWhdk4qs8J8rvgwuCpztMx6DpYzXqOugSJATsh3eh+PtEjWtgXCW61V6Jn/bFpxHzRZjsZy+9DofzCklZfuTJtXViUhY67V4NAqZT/a3N6P6eSqVnMuPoS8QqPFIWsybTsXmXYQXTiq4lRhN5xUpoM21psW+uW1x5kMt556YMhWVS2KUuY4hgnSD0C5KJ3hBc6vyN5J1Msfcpi89sxMq+EWTTAhmSHlGkpCrm3HVdYl5a6iPIteI+cFldLEAWGrrjDfpqO7qM/yMZAwgqd8o1aXu4lkigrBHn0WTgT9KRl5Jq6kBhg8KS+IZVi4K4LMtzNOhhE2jRxF78P+sqb4vRnpkiYBDICn9DjRVneMvVXlRDqcxKTFYLfWdxkbq7oVK7MkXBVY8yy66rRmeHdV05rv8eSWdgY+DfenODhA=#TNT%20NOLOAD%20BOYSUPOTPH
             </div>
             <button class="copy-btn" onclick="copyText('cfstsText', this)">📋 Copy Link</button>
         </div>
     </div>
 
     <script>
-        // Generate stars
-        const starsContainer = document.getElementById('starsContainer');
-        for (let i = 0; i < 60; i++) {
-            const star = document.createElement('span');
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
-            starsContainer.appendChild(star);
-        }
-
-        // Hide loading screen
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('loadingScreen').classList.add('fade-out');
-            }, 1800);
-        });
-
-        // Copy function
         function copyText(elementId, btn) {
-            const text = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(text).then(function() {
-                btn.innerText = '✅ COPIED!';
-                btn.classList.add('copied');
-                setTimeout(function() {
-                    btn.innerHTML = '📋 Copy Link';
-                    btn.classList.remove('copied');
+            try {
+                var text = document.getElementById(elementId).innerText.trim();
+                var temp = document.createElement('textarea');
+                temp.value = text;
+                temp.style.position = 'fixed';
+                temp.style.left = '-9999px';
+                temp.style.top = '0';
+                document.body.appendChild(temp);
+                temp.focus();
+                temp.select();
+                var success = document.execCommand('copy');
+                document.body.removeChild(temp);
+                
+                if (success) {
+                    btn.innerText = '✅ COPIED!';
+                    btn.classList.add('copied');
+                    setTimeout(function() {
+                        btn.innerText = '📋 Copy Link';
+                        btn.classList.remove('copied');
+                    }, 2000);
+                } else {
+                    alert('Hindi nakopya — i-highlight at copy na lang nang kamay');
+                }
+            } catch (e) {
+                alert('Error: ' + e.message);
+            }
+        }
+    </script>
+</body>
+</html>
