@@ -11,6 +11,7 @@
             background: #0a0a18;
             min-height: 100vh;
             padding: 20px;
+            padding-bottom: 40px;
             color: white;
             position: relative;
             overflow-x: hidden;
@@ -157,6 +158,31 @@
 
         .copy-btn:active { transform: scale(0.97); }
         .copy-btn.copied { background: linear-gradient(90deg, #00aa55, #00dd77); }
+
+        /* 📢 TELEGRAM BUTTON */
+        .telegram-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(90deg, #0088cc, #0099dd);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 17px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 136, 204, 0.3);
+        }
+        .telegram-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 136, 204, 0.5);
+        }
+        .telegram-icon { font-size: 22px; }
     </style>
 </head>
 <body>
@@ -241,7 +267,7 @@ ssh://free:free@13.226.71.107:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpLD5q
             <button class="copy-btn" onclick="copyText('ssText', this)">📋 Copy Link</button>
         </div>
 
-        <!-- ✅ BAGONG LINK - NETMOD SYNA CF STS -->
+        <!-- NETMOD SYNA CF STS -->
         <div class="card">
             <div class="card-header">
                 <div class="card-title">🔐 NETMOD SYNA CF STS</div>
@@ -251,6 +277,14 @@ ssh://free:free@13.226.71.107:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpLD5q
 ssh://tree:tree@www.mypocketdoctor.com:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIHl/GyXRQVayvTw7BFsPuoXqHE9dswLuALeabPrg16Ofy+Y0ln1QKp2bF3LtVYE0eeE0rcYmiPwR2eEkUcYi6alcXakHl8lCeLWjEcpF322VzVzSs3qTU5VUiKGOvGdOmHaYuMoh9HXV9tyIQtt6t3ZpvFRWhdk4qs8J8rvgwuCpztMx6DpYzXqOugSJATsh3eh+PtEjWtgXCW61V6Jn/bFpxHzRZjsZy+9DofzCklZfuTJtXViUhY67V4NAqZT/a3N6P6eSqVnMuPoS8QqPFIWsybTsXmXYQXTiq4lRhN5xUpoM21psW+uW1x5kMt556YMhWVS2KUuY4hgnSD0C5KJ3hBc6vyN5J1Msfcpi89sxMq+EWTTAhmSHlGkpCrm3HVdYl5a6iPIteI+cFldLEAWGrrjDfpqO7qM/yMZAwgqd8o1aXu4lkigrBHn0WTgT9KRl5Jq6kBhg8KS+IZVi4K4LMtzNOhhE2jRxF78P+sqb4vRnpkiYBDICn9DjRVneMvVXlRDqcxKTFYLfWdxkbq7oVK7MkXBVY8yy66rRmeHdV05rv8eSWdgY+DfenODhA=#TNT%20NOLOAD%20BOYSUPOTPH
             </div>
             <button class="copy-btn" onclick="copyText('cfstsText', this)">📋 Copy Link</button>
+        </div>
+
+        <!-- 📢 TELEGRAM GROUP BUTTON -->
+        <div class="telegram-section">
+            <a href="https://t.me/+7JVXaDEgf2I4NWZl" target="_blank" class="telegram-btn">
+                <span class="telegram-icon">📢</span>
+                Join Our Telegram Group
+            </a>
         </div>
     </div>
 
