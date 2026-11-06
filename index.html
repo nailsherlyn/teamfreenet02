@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamFreenet</title>
+    <title>TeamFreenet — Maintenance</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
         body {
             background: #0a0a18;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            padding-bottom: 60px;
-            color: white;
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         body::before {
@@ -32,67 +38,57 @@
             z-index: 0;
         }
 
-        .container { max-width: 450px; margin: 0 auto; position: relative; z-index: 1; }
-
-        .header-profile { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; margin-top: 10px; }
-        .avatar { 
-            width: 60px; height: 60px; border-radius: 50%; 
-            background: linear-gradient(135deg, #00ffff, #ff00ff);
-            display: flex; align-items: center; justify-content: center;
-            border: 3px solid #00ffff;
-            box-shadow: 0 0 20px #00ffff;
-            font-weight: bold; font-size: 22px; color: #000;
+        /* ❄️ SNOW EFFECT */
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
         }
-        .name { 
-            font-size: 24px; font-weight: bold;
-            color: #00ffff;
-            text-shadow: 0 0 10px #00ffff;
+        .snowflake {
+            position: absolute;
+            color: #fff;
+            font-size: 16px;
+            animation: snowFall linear infinite;
+        }
+        @keyframes snowFall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0.1; }
         }
 
-        .status-card {
-            background: rgba(15, 15, 35, 0.85);
-            border-radius: 16px;
-            padding: 20px;
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .icon {
+            font-size: 80px;
             margin-bottom: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            animation: bounce 2s ease-in-out infinite;
         }
 
-        .status-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .online-dot { display: flex; align-items: center; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 8px #00ff88; animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0%,100% { box-shadow: 0 0 8px #00ff88; }
-            50% { box-shadow: 0 0 15px #00ff88, 0 0 25px #00ff88; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
-        .online-text { color: #00ff88; font-weight: 600; }
-        .country { display: flex; align-items: center; gap: 6px; }
-        .flag { font-size: 22px; }
-
-        .protocols-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 0; }
-        .proto-tag {
-            background: rgba(30, 30, 60, 0.6);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .vless { color: #ff6b8b; }
-        .vmess { color: #ffd166; }
-        .trojan { color: #c792ea; }
-        .ss { color: #80ffea; }
 
         h1 {
-            font-size: 48px;
+            font-size: 36px;
             font-weight: bold;
-            text-align: center;
-            margin: 20px 0;
-            background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
+            background: linear-gradient(90deg, #ffcc00, #ff8800, #ffcc00);
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            margin-bottom: 10px;
             animation: textGlow 3s linear infinite;
-            filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
         }
 
         @keyframes textGlow {
@@ -100,70 +96,61 @@
             100% { background-position: 200% center; }
         }
 
-        .info-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 25px; }
-        .info-tag {
-            background: rgba(30, 30, 60, 0.6);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 15px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            color: #00ffff;
-        }
-
-        .card {
-            background: rgba(15, 15, 35, 0.85);
-            border-radius: 16px;
-            padding: 20px;
+        h2 {
+            font-size: 22px;
+            color: #ffffff;
             margin-bottom: 20px;
-            border: 1px solid rgba(100, 100, 180, 0.2);
+            opacity: 0.9;
         }
 
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .card-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .badge { 
-            padding: 4px 12px; 
-            border-radius: 20px; 
-            font-size: 13px; 
-            font-weight: 600;
-        }
-        .badge-ws-tls { background: linear-gradient(90deg, #cc44ff, #6666ff); color: white; }
-        .badge-ws-tls-vmess { background: linear-gradient(90deg, #ffaa00, #ff8800); color: white; }
-        .badge-ws-tls-ss { background: linear-gradient(90deg, #00ccaa, #00ee88); color: white; }
-
-        .link-box {
-            background: #001a0a;
-            padding: 14px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 10px;
-            word-break: break-all;
-            margin-bottom: 15px;
-            color: #00ff88;
-            border: 1px solid rgba(0, 255, 136, 0.25);
-            line-height: 1.5;
+        .status-box {
+            background: rgba(25, 25, 50, 0.7);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: 16px;
+            padding: 30px 25px;
+            margin-bottom: 30px;
         }
 
-        .copy-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #cc44ff, #00ccff);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 17px;
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+        .loading-dots span {
+            width: 10px;
+            height: 10px;
+            background: #ffcc00;
+            border-radius: 50%;
+            animation: dotPulse 1.4s infinite;
+        }
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .wait-text {
+            font-size: 18px;
+            color: #00ffff;
+            margin: 15px 0;
+        }
+
+        .owner {
+            font-size: 15px;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        .owner span {
+            color: #ffcc00;
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
         }
 
-        .copy-btn:active { transform: scale(0.97); }
-        .copy-btn.copied { background: linear-gradient(90deg, #00aa55, #00dd77); }
-
-        /* 📢 TELEGRAM BUTTON */
-        .telegram-section {
+        .telegram-link {
             margin-top: 30px;
-            text-align: center;
         }
+
         .telegram-btn {
             display: inline-flex;
             align-items: center;
@@ -172,180 +159,63 @@
             color: white;
             padding: 14px 28px;
             border-radius: 50px;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: bold;
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 0 15px rgba(0, 136, 204, 0.3);
         }
+
         .telegram-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 25px rgba(0, 136, 204, 0.5);
         }
-        .telegram-icon { font-size: 22px; }
-
-        /* 📝 NOTE SECTION */
-        .note-box {
-            margin-top: 25px;
-            padding: 16px;
-            background: rgba(0, 50, 80, 0.4);
-            border: 1px solid rgba(0, 200, 255, 0.3);
-            border-radius: 12px;
-            text-align: center;
-        }
-        .note-text {
-            color: #80ffff;
-            font-size: 15px;
-            font-weight: 500;
-            line-height: 1.6;
-        }
-        .note-highlight {
-            color: #00ffcc;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
+    <div id="snow-container"></div>
+
     <div class="container">
-        <div class="header-profile">
-            <div class="avatar">TF</div>
-            <div class="name">TeamFreenet</div>
+        <div class="icon">🔧</div>
+        <h1>MAINTENANCE BREAK</h1>
+        <h2>UNDER MAINTENANCE</h2>
+
+        <div class="status-box">
+            <p class="wait-text">Please wait for update</p>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="owner">Owner: <span>BOYSUPOTPH</span></p>
         </div>
 
-        <div class="status-card">
-            <div class="status-top">
-                <div class="online-dot">
-                    <span class="dot"></span>
-                    <span class="online-text">SERVER ONLINE</span>
-                </div>
-                <div class="country">
-                    <span class="flag">🇸🇬</span>
-                </div>
-            </div>
-            <div class="protocols-row">
-                <span class="proto-tag vless">● VLESS GCP 1</span>
-                <span class="proto-tag vmess">● DATAMAX 1</span>
-                <span class="proto-tag trojan">● Trojan GCP 1</span>
-                <span class="proto-tag ss">● SSH 3</span>
-            </div>
-        </div>
-
-        <h1>TeamFreenet</h1>
-
-        <div class="info-tags">
-            <span class="info-tag">● 4 Protocols</span>
-            <span class="info-tag">Port 443</span>
-            <span class="info-tag">WebSocket</span>
-            <span class="info-tag">TLS</span>
-        </div>
-
-        <!-- VLESS GCP -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">📦 VLESS GCP</div>
-                <span class="badge badge-ws-tls">WS · TLS</span>
-            </div>
-            <div class="link-box" id="vlessText">
-vless://123e4567-e89b-12d3-a456-426655440000@firebaseremoteconfigrealtime.googleapis.com:443?encryption=none&type=ws&host=master-34687026623.asia-southeast1.run.app&headerType=none&path=%2Fmaster-vless&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Vless
-            </div>
-            <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- NETMOD SYNA DATAMAX SOCIAL BYPASS -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🔐 NETMOD SYNA DATAMAX</div>
-                <span class="badge badge-ws-tls-vmess">SSH · 443/80</span>
-            </div>
-            <div class="link-box" id="vmessText">
-ssh://data:data@tiktok.teamfreenet.sbs:80?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIls9V92UQ5EEQQUjVO/wu/2SzQFgWjKDpP2//YaEwFMVhDX50YiyMmNhgtC0zRtfMVBciNxYGN7hwmqY4J/HK/ufpuzN/ezZGMzCpRuW+4Vh/YEHIJXURq6KhhLjkqm6EIDQupyOJ7uvD1BmDOMZESP1cRaiYNVMtu+JGOOFEhKVDMngB7kwU6qdcOl3FBfcYHxXWlolNH3NCE2upN44bbt30CbkkssPMHYEltybnoMm4ZP2n8CX0px6InhQPw6400N/SK/ih1W/4iof3d+SlYaO0S1cMEnkqIxVPvTx3FL0yuE8qfBJtUPvxe1ItB8xsrKBVnxUZCePB+iiFPrln2L1YHDJkb48rXw4ehcL3yI+JvtQsrTSZo7Lu//Ec4g4Q5n3+rVEnSUYO0WHu1Aeox/CsDtd7xgyaGro2xwjm5jUc10s16xtspFmb6hsnbRzz//o72CoyTLu3bU+69u5kT#DATA%20MAXX%26UNLI%20SOCIAL%20NO%20BAWAS%20BOYSUPOTPH
-            </div>
-            <button class="copy-btn" onclick="copyText('vmessText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- TROJAN GCP -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🔐 TROJAN GCP</div>
-                <span class="badge badge-ws-tls">WS · TLS</span>
-            </div>
-            <div class="link-box" id="trojanText">
-trojan://Billy@firebaseremoteconfigrealtime.googleapis.com:443?type=ws&host=master-34687026623.asia-southeast1.run.app&headerType=none&path=%2Fmaster-trojan&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Trojan%20
-            </div>
-            <button class="copy-btn" onclick="copyText('trojanText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- NETMOD SYNA GTM CFR -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🔐 NETMOD SYNA GTM CFR</div>
-                <span class="badge badge-ws-tls-ss">SSH · 443/80</span>
-            </div>
-            <div class="link-box" id="ssText">
-ssh://free:free@13.226.71.107:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpLD5qqMMkPdOXuNSV+Au5C+o1hUBX07ZLDl7M7KCK2FKaFj+LgdFlTTjYryafIbtn+h5sCiESupQMgI/+a15UjUYVWFiJoDWdaEkMC/C7shTUjQUCiSk7ZZmewWAlhx3d1RTxYi6s6P0Qih3nMFJt2onTfkw9VGROQZ4qe29XpwppB2u6JYkWARO6AUhLnezpZ6SAB2XQsh3wZNgxomKKGUfgOd5JaJjDMz558ee7C90q7w2prdjr696W4uJinM4Qhg7byN1nTt5Q2y9hJnpS2bTT2QsQ+C+hfDlC5QUV3gfFQApl5Ix+dgQZfsHbqX0Z2TDL5tTQqBQjgwF8xSonBx4m+1CytNJmjsu7/8RziDhDmff6tUSdJRg7RYe7UB6jH8KwO13vGDJoaujbHCObmNRzXSzXrG2ykWZvqGydtHPP/+jvYKjJMu7dtT7r27mRM=#%F0%9F%87%B8%F0%9F%87%AC(SSH)NEWGTMNOLOAD%2FBOYSUPOTPH
-            </div>
-            <button class="copy-btn" onclick="copyText('ssText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- NETMOD SYNA CF STS -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🔐 NETMOD SYNA CF STS</div>
-                <span class="badge badge-ws-tls-ss">SSH · 443/80</span>
-            </div>
-            <div class="link-box" id="cfstsText">
-ssh://tree:tree@www.mypocketdoctor.com:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIHl/GyXRQVayvTw7BFsPuoXqHE9dswLuALeabPrg16Ofy+Y0ln1QKp2bF3LtVYE0eeE0rcYmiPwR2eEkUcYi6alcXakHl8lCeLWjEcpF322VzVzSs3qTU5VUiKGOvGdOmHaYuMoh9HXV9tyIQtt6t3ZpvFRWhdk4qs8J8rvgwuCpztMx6DpYzXqOugSJATsh3eh+PtEjWtgXCW61V6Jn/bFpxHzRZjsZy+9DofzCklZfuTJtXViUhY67V4NAqZT/a3N6P6eSqVnMuPoS8QqPFIWsybTsXmXYQXTiq4lRhN5xUpoM21psW+uW1x5kMt556YMhWVS2KUuY4hgnSD0C5KJ3hBc6vyN5J1Msfcpi89sxMq+EWTTAhmSHlGkpCrm3HVdYl5a6iPIteI+cFldLEAWGrrjDfpqO7qM/yMZAwgqd8o1aXu4lkigrBHn0WTgT9KRl5Jq6kBhg8KS+IZVi4K4LMtzNOhhE2jRxF78P+sqb4vRnpkiYBDICn9DjRVneMvVXlRDqcxKTFYLfWdxkbq7oVK7MkXBVY8yy66rRmeHdV05rv8eSWdgY+DfenODhA=#TNT%20NOLOAD%20BOYSUPOTPH
-            </div>
-            <button class="copy-btn" onclick="copyText('cfstsText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- 📝 NOTE SECTION -->
-        <div class="note-box">
-            <p class="note-text">
-                <span class="note-highlight">📌 Note:</span><br>
-                Unlimited GCP & WebSocket Protocol<br>
-                <span class="note-highlight">Powered by BOYSUPOTPH 💙</span>
-            </p>
-        </div>
-
-        <!-- 📢 TELEGRAM GROUP BUTTON -->
-        <div class="telegram-section">
+        <div class="telegram-link">
             <a href="https://t.me/+7JVXaDEgf2I4NWZl" target="_blank" class="telegram-btn">
-                <span class="telegram-icon">📢</span>
-                Join Our Telegram Group
+                📢 Join Our Telegram for Updates
             </a>
         </div>
     </div>
 
     <script>
-        function copyText(elementId, btn) {
-            try {
-                var text = document.getElementById(elementId).innerText.trim();
-                var temp = document.createElement('textarea');
-                temp.value = text;
-                temp.style.position = 'fixed';
-                temp.style.left = '-9999px';
-                temp.style.top = '0';
-                document.body.appendChild(temp);
-                temp.focus();
-                temp.select();
-                var success = document.execCommand('copy');
-                document.body.removeChild(temp);
-                
-                if (success) {
-                    btn.innerText = '✅ COPIED!';
-                    btn.classList.add('copied');
-                    setTimeout(function() {
-                        btn.innerText = '📋 Copy Link';
-                        btn.classList.remove('copied');
-                    }, 2000);
-                } else {
-                    alert('Hindi nakopya — i-highlight at copy na lang nang kamay');
-                }
-            } catch (e) {
-                alert('Error: ' + e.message);
+        // ❄️ FALLING SNOW
+        function startSnow() {
+            const container = document.getElementById('snow-container');
+            const flakes = ['❄', '❅', '❆', '✻', '✼', '❉'];
+            for (let i = 0; i < 40; i++) {
+                const snow = document.createElement('span');
+                snow.className = 'snowflake';
+                snow.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+                snow.style.left = Math.random() * 100 + '%';
+                snow.style.fontSize = (Math.random() * 10 + 8) + 'px';
+                snow.style.opacity = Math.random() * 0.5 + 0.3;
+                const speed = Math.random() * 6 + 6;
+                snow.style.animationDuration = speed + 's';
+                snow.style.animationDelay = Math.random() * speed + 's';
+                container.appendChild(snow);
             }
         }
+        startSnow();
     </script>
 </body>
 </html>
