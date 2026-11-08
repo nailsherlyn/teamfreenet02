@@ -80,6 +80,7 @@
         .vmess { color: #ffd166; }
         .trojan { color: #c792ea; }
         .ss { color: #80ffea; }
+        .darktunnel { color: #ffcc00; }
 
         h1 {
             font-size: 48px;
@@ -129,6 +130,7 @@
         .badge-ws-tls { background: linear-gradient(90deg, #cc44ff, #6666ff); color: white; }
         .badge-ws-tls-vmess { background: linear-gradient(90deg, #ffaa00, #ff8800); color: white; }
         .badge-ws-tls-ss { background: linear-gradient(90deg, #00ccaa, #00ee88); color: white; }
+        .badge-darktunnel { background: linear-gradient(90deg, #ffcc00, #ff9900); color: #000; }
 
         .link-box {
             background: #001a0a;
@@ -228,13 +230,14 @@
                 <span class="proto-tag trojan">● Trojan GCP 1</span>
                 <span class="proto-tag ss">● SSH 2</span>
                 <span class="proto-tag ss">● DATAMAX 1</span>
+                <span class="proto-tag darktunnel">● DarkTunnel 1</span>
             </div>
         </div>
 
         <h1>TeamFreenet</h1>
 
         <div class="info-tags">
-            <span class="info-tag">● 4 Protocols</span>
+            <span class="info-tag">● 5 Protocols</span>
             <span class="info-tag">Port 443</span>
             <span class="info-tag">WebSocket</span>
             <span class="info-tag">TLS</span>
@@ -261,7 +264,7 @@ vless://123e4567-e89b-12d3-a456-426655440000@firebaseremoteconfigrealtime.google
             <div class="link-box" id="vmessText">
 ssh://tik:tik@tektak&sosyal.knarfsversionsbd.shop:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIls9V92UQ5EEQQUjVO/wu/2SzQFgWjKDpP2//YaEwFMVhDX50YiyMmNhgtC0zRtfMVBciNxYGN7hwmqY4J/HK/ufpuzN/ezZGMzCpRuW+4Vh/YEHIJXURq6KhhLjkqm6EIDQupyOJ7uvD1BmDOMZESP1cRaiYNVMtu+JGOOFEhKVDMngB7kwU6qdcOl3FBfcaNjtKxg4pedt1dX2SIge4cUwMs7cDQoeMMJuG6Q4I4nwAdCbOrQ8tZZgAFqc0VFU701RyLT2rZqqBtXQEdoBMkpjgS3L6cudzljuLCUYRhJlMDLO3A0KHjDCbhukOCOJ8ea3rq/bfU8aXbD+AiNCRwqOdeJjPbNOM6BPE2XQH/1ZuifYY8CUwueuNeDt8jhRKhyyl/6rloJLUEnbXMkCUvd7uNcdIUrdSrB0T8LRfBZzF9kgAn+6Qlx5JwO3369C4uAtD8x6R1bSnuOY97nZ4Sk3DJ7+JkrLSHQU9GIZKQyw==#DATA%20MAXX%26UNLI%20SOCIAL%20NO%20BAWAS
             </div>
-            <button class="copy-btn" onclick="copyText('vmessText', this)">📋 Copy Link</button>
+            <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
         </div>
 
         <!-- TROJAN GCP -->
@@ -273,7 +276,7 @@ ssh://tik:tik@tektak&sosyal.knarfsversionsbd.shop:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6
             <div class="link-box" id="trojanText">
 trojan://Billy@firebaseremoteconfigrealtime.googleapis.com:443?type=ws&host=master-34687026623.asia-southeast1.run.app&headerType=none&path=%2Fmaster-trojan&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Trojan%20
             </div>
-            <button class="copy-btn" onclick="copyText('trojanText', this)">📋 Copy Link</button>
+            <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
         </div>
 
         <!-- NETMOD SYNA IWANTTV -->
@@ -285,7 +288,7 @@ trojan://Billy@firebaseremoteconfigrealtime.googleapis.com:443?type=ws&host=mast
             <div class="link-box" id="ssText">
 nm-vless://DkF8nBQJad+AsabWEOEOQeeJrNJ+U0HZw6tvup3nJe8+MyNzqvDpxFKlzGVFB0eCXud1zZjGsaPNGKL+Xo7WNz3rwbT048UMssJ7NlIyCZP5vfZsKCjHuvJbS/0DWJ82cf9t9131dVw0soJeEsphgCosU9MSXk/GUCa7ASAjintV6/0TrBCj6uU8w7N+BXMyCqvUe57d4lkqkBv251uOohXWbGNC+7TLOxjhSby3icyGw9ZDvCLPvJCMaI0hV203Bn4d6gII6R3HzLWkahkdWBVs+iOHDkWcP4MQ+Skh54bYxLDONKmNcznKqrvCsR5w2n6zI6Yb4zrHz7y4JtnVn260GS5NJpr9C7NSprOaEt4=
             </div>
-            <button class="copy-btn" onclick="copyText('ssText', this)">📋 Copy Link</button>
+            <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
         </div>
 
         <!-- NETMOD SYNA CF STS -->
@@ -297,7 +300,19 @@ nm-vless://DkF8nBQJad+AsabWEOEOQeeJrNJ+U0HZw6tvup3nJe8+MyNzqvDpxFKlzGVFB0eCXud1z
             <div class="link-box" id="cfstsText">
 ssh://primetech:primetech@www.mypocketdoctor.com:80?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIHl/GyXRQVayvTw7BFsPuoXqHE9dswLuALeabPrg16Ofy+Y0ln1QKp2bF3LtVYE0eeE0rcYmiPwR2eEkUcYi6alcXakHl8lCeLWjEcpF322VzVzSs3qTU5VUiKGOvGdOmHaYuMoh9HXV9tyIQtt6t3ZpvFRWhdk4qs8J8rvgwuCpztMx6DpYzXqOugSJATsh3eh+PtEjWtgXCW61V6Jn/bFpxHzRZjsZy+9DofzCklZfuTJtXViUhY67V4NAqZT/a3N6P6eSqVnMuPoS8QqPFIWsybTsXmXYQXTiq4lRhN5xUpoM21psW+uW1x5kMt556YMhWVS2KUuY4hgnSD0C5KJ3hBc6vyN5J1Msfcpi89sxMq+EWTTAhmSHlGkpCrm3ExvRp/YwsCqXQKWINquTuAMIErTX6TqPManGVLhstCSfILdEJfxh0xV9b1rOW4CtB49lMI+Sx3zsc0adMhd3K7bQkEyrF+kz9a9g30iaIHbXv34JUy/SDbw0GTYbqtFXe45ufYkiZqe8Dni6LRfbKUGxQ3M8uAhL9wnOSfmLPI4iwb41xzoSQCfpABX20229Q=#TNT%20NOLOAD%20BOYSUPOTPH
             </div>
-            <button class="copy-btn" onclick="copyText('cfstsText', this)">📋 Copy Link</button>
+            <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
+        </div>
+
+        <!-- 🌑 DARKTUNEL -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🌑 DARKTUNNEL GTM Free</div>
+                <span class="badge badge-darktunnel">VLESS · INJECT</span>
+            </div>
+            <div class="link-box" id="darktunnelText">
+darktunnel://eyJ0eXBlIjoiVkxFU1MiLCJuYW1lIjoiR1RNIGZyZWUiLCJ2bGVzc1R1bm5lbENvbmZpZyI6eyJ2MnJheUNvbmZpZyI6eyJob3N0IjoiZ3Byby1pYW0taW50ZXJuYWwuZ2Nhc2guY29tIiwicG9ydCI6NDQzLCJ1dWlkIjoiMTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwIiwic2VydmVyTmFtZUluZGljYXRpb24iOiJwZTEuYmxvZ2Jsb2cuY29tIiwid3NQYXRoIjoiL21hc3Rlci12bGVzcyIsIndzSGVhZGVySG9zdCI6Im1hc3Rlci0zMDk5Mjc4NDI5MzYuYXNpYS1zb3V0aDEucnVuLmFwcCJ9LCJpbmplY3RDb25maWciOnsiZW5hYmxlZCI6dHJ1ZSwibW9kZSI6IlBST1hZIiwicHJveHlIb3N0IjoiaW9yZy1mYmEtZWRnZS1zaHYtMDItY2N1MS5mYWNlYm9vay5jb20iLCJwYXlsb2FkIjoiQ09OTkVDVCBwZTEuYmxvZ2Jsb2cuY29tOjQ0MyBIVFRQLzEuMVtjcmxmXXgtY29ubmVjdGVkLXRvOiBpb3JnLWZiYS1lZGdlLXNodi0wMi1jY3UxLmZhY2Vib29rLmNvbVtjcmxmXXVzZXItYWdlbnQ6IEZCQVYvMC4wLjBbY3JsZl14LWlvcmctYnNpZDogQEVNQUxbY3JsZl1bY3JsZl0ifX19
+            </div>
+            <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
         </div>
 
         <!-- 📝 NOTE SECTION -->
