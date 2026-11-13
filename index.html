@@ -1,383 +1,363 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamFreenet Panel</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: white;
-            padding: 20px;
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 25px 20px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #38bdf8;
-            margin-bottom: 5px;
-        }
-
-        .tagline {
-            color: #94a3b8;
-            font-size: 13px;
-        }
-
-        .telegram-section {
-            background: rgba(38, 165, 228, 0.1);
-            border: 1px solid rgba(38, 165, 228, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .telegram-note {
-            font-size: 13px;
-            color: #93c5fd;
-            margin-bottom: 10px;
-        }
-
-        .telegram-btn {
-            display: inline-block;
-            background: linear-gradient(90deg, #26a5e4, #0088cc);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 18px;
-        }
-
-        .grid-card {
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: 10px;
-            padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: center;
-        }
-
-        .card-label {
-            font-size: 11px;
-            color: #94a3b8;
-            margin-bottom: 6px;
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #22c55e;
-            animation: pulse 2s infinite;
-        }
-
-        .status-dot.offline {
-            background: #ef4444;
-            animation: none;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .expiry-text {
-            font-size: 14px;
-            font-weight: 600;
-            color: #fbbf24;
-        }
-
-        .config-card {
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-        }
-
-        .config-title {
-            font-size: 14px;
-            color: #93c5fd;
-            margin-bottom: 8px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .config-box {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 8px;
-            word-break: break-all;
-            font-family: monospace;
-            font-size: 7px;
-            color: #a5f3fc;
-            line-height: 1.4;
-            user-select: text;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 7px;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        .btn-copy {
-            background: linear-gradient(90deg, #10b981, #059669);
-            color: white;
-        }
-
-        .btn-link {
-            display: block;
-            text-align: center;
-            padding: 10px;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6);
-            color: white;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            margin-top: 5px;
-        }
-
-        .copied-msg {
-            display: none;
-            color: #10b981;
-            font-size: 11px;
-            margin-top: 6px;
-            text-align: center;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 11px;
-            color: #64748b;
-        }
-
-        @media (max-width: 380px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeamFreenet Panel</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    padding: 20px;
+}
+.container {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 25px 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #38bdf8;
+    margin-bottom: 5px;
+}
+.tagline {
+    color: #94a3b8;
+    font-size: 13px;
+}
+.telegram-section {
+    background: rgba(38,165,228,0.1);
+    border: 1px solid rgba(38,165,228,0.3);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.telegram-note {
+    font-size: 13px;
+    color: #93c5fd;
+    margin-bottom: 10px;
+}
+.telegram-btn {
+    display: inline-block;
+    background: linear-gradient(90deg,#26a5e4,#0088cc);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+.grid-card {
+    background: rgba(0,0,0,0.25);
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+}
+.card-label {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 6px;
+}
+.status-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: pulse 2s infinite;
+}
+.status-dot.offline {
+    background: #ef4444;
+    animation: none;
+}
+@keyframes pulse {
+    0%,100% {opacity:1;}
+    50% {opacity:0.4;}
+}
+.expiry-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fbbf24;
+}
+.config-card {
+    background: rgba(0,0,0,0.25);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(56,189,248,0.2);
+}
+.config-title {
+    font-size: 14px;
+    color: #93c5fd;
+    margin-bottom: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.config-box {
+    background: rgba(0,0,0,0.3);
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 8px;
+    word-break: break-all;
+    font-family: monospace;
+    font-size: 7px;
+    color: #a5f3fc;
+    line-height: 1.4;
+    user-select: text;
+}
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.btn-copy {
+    background: linear-gradient(90deg,#10b981,#059669);
+    color: white;
+}
+.btn-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: linear-gradient(90deg,#06b6d4,#3b82f6);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+.copied-msg {
+    display: none;
+    color: #10b981;
+    font-size: 11px;
+    margin-top: 6px;
+    text-align: center;
+}
+.footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 11px;
+    color: #64748b;
+}
+@media (max-width:380px) {
+    .grid {grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">🌐 TeamFreenet</div>
-            <p class="tagline">Fast • Secure • Free Internet Tools</p>
-        </div>
 
-        <!-- TELEGRAM SECTION -->
-        <div class="telegram-section">
-            <div class="telegram-note">📢 <strong>Note:</strong> Join our Telegram group for updates, new configs & support!</div>
-            <a href="https://t.me/+7JVXaDEgf2I4NWZl" target="_blank" class="telegram-btn">👉 Join Telegram Group</a>
-        </div>
+<div class="container">
 
-        <div class="grid">
-            <div class="grid-card">
-                <div class="card-label">📡 Server Status</div>
-                <div class="status-indicator">
-                    <span class="status-dot" id="statusDot"></span>
-                    <span id="statusText">Checking...</span>
-                </div>
-            </div>
-            <div class="grid-card">
-                <div class="card-label">⏰ Expiry Date</div>
-                <div class="expiry-text" id="expiryDate">--/--/----</div>
-            </div>
-        </div>
+<div class="header">
+    <div class="logo">🌐 TeamFreenet</div>
+    <p class="tagline">Fast • Secure • Free Internet Tools</p>
+</div>
 
-        <!-- 1. VLESS GCP -->
-        <div class="config-card">
-            <div class="config-title">🌐 NETMOD VLESS GCP</div>
-            <div class="config-box" id="config1">
-vless://123e4567-e89b-12d3-a456-426655440000@vpn.googleapis.com:443?encryption=none&type=ws&host=master3-625344316023.asia-southeast1.run.app&headerType=none&path=%2Fmaster-vless&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Vless
-            </div>
-            <button class="btn btn-copy" onclick="copyText('config1', 'msg1')">📋 Copy</button>
-            <div class="copied-msg" id="msg1">✅copy</div>
-        </div>
+<div class="telegram-section">
+    <div class="telegram-note">
+        📢 <strong>Note:</strong> Join our Telegram group for updates, new configs & support!
+    </div>
+    <a href="https://t.me/+7JVXaDEgf2I4NWZl"
+       target="_blank" class="telegram-btn">
+       👉 Join Telegram Group
+    </a>
+</div>
 
-        <!-- 2. IWANT TV BYPASS -->
-        <div class="config-card">
-            <div class="config-title">🌐 NETMOD IWANT TV BYPASS</div>
-            <div class="config-box" id="config2">
-nm-vless://DkF8nBQJad+AsabWEOEOQeeJrNJ+U0HZw6tvup3nJe8+MyNzqvDpxFKlzGVFB0eCXud1zZjGsaPNGKL+Xo7WNz3rwbT048UMssJ7NlIyCZP5vfZsKCjHuvJbS/0DWJ82cf9t9131dVw0soJeEsphgCosU9MSXk/GUCa7ASAjintV6/0TrBCj6uU8w7N+BXMyCqvUe57d4lkqkBv251uOohXWbGNC+7TLOxjhSby3icyGw9ZDvCLPvJCMaI0hV203Bn4d6gII6R3HzLWkahkdWBVs+iOHDkWcP4MQ+Skh54bYxLDONKmNcznKqrvCsR5w2n6zI6Yb4zrHz7y4JtnVn260GS5NJpr9C7NSprOaEt4=
-            </div>
-            <button class="btn btn-copy" onclick="copyText('config2', 'msg2')">📋 Copy</button>
-            <div class="copied-msg" id="msg2">✅copy</div>
-        </div>
-
-        <!-- 3. DATA MAX BYPASS -->
-        <div class="config-card">
-            <div class="config-title">🌐 NETMOD DATA MAX BYPASS</div>
-            <div class="config-box" id="config3">
-ssh://sytama:sytama@tiktok.teamfreenet.sbs:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIls9V92UQ5EEQQUjVO/wu/2SzQFgWjKDpP2//YaEwFMVhDX50YiyMmNhgtC0zRtfMVBciNxYGN7hwmqY4J/HK/ufpuzN/ezZGMzCpRuW+4Vh/YEHIJXURq6KhhLjkqm6EIDQupyOJ7uvD1BmDOMZESP1cRaiYNVMtu+JGOOFEhKVDMngB7kwU6qdcOl3FBfcYHxXWlolNH3NCE2upN44bbt30CbkkssPMHYEltybnoMm4ZP2n8CX0px6InhQPw642TqPmN4YdFepuTzRgslbunMJB3i+oR5RFwmwrEySpxBU09kLEPgvoXw5QuUFFd4HxUAKZeSMfnYEGX7B26l9Gd2kLkDIehBE/iTSUNyHZ2yCgP+RRSA+CDOLU2UumNme4VSn3PZFFmdLqkglTmR132XtWn/wrXk06BUl2kYdOUllVmnLtqyVM1yniiMNumXhO4SfqzQQeXngS9I+MpeN1S#DATA%20MAXX%26UNLI%20SOCIAL%20NO%20BAWAS
-            </div>
-            <button class="btn btn-copy" onclick="copyText('config3', 'msg3')">📋 Copy</button>
-            <div class="copied-msg" id="msg3">✅copy</div>
-        </div>
-
-        <!-- 4. STS NOLOAD CF -->
-        <div class="config-card">
-            <div class="config-title">🌐 NETMOD STS NOLOAD CF</div>
-            <div class="config-box" id="config4">
-ssh://Kingkon:Kingkon@www.mypocketdoctor.com:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIHl/GyXRQVayvTw7BFsPuoXqHE9dswLuALeabPrg16Ofy+Y0ln1QKp2bF3LtVYE0eeE0rcYmiPwR2eEkUcYi6alcXakHl8lCeLWjEcpF322VzVzSs3qTU5VUiKGOvGdOmHaYuMoh9HXV9tyIQtt6t3ZpvFRWhdk4qs8J8rvgwuCpztMx6DpYzXqOugSJATsh3eh+PtEjWtgXCW61V6Jn/bFpxHzRZjsZy+9DofzCklZfuTJtXViUhY67V4NAqZT/a3N6P6eSqVnMuPoS8QqPFIWsybTsXmXYQXTiq4lRhN5xUpoM21psW+uW1x5kMt556YMhWVS2KUuY4hgnSD0C5KJ3hBc6vyN5J1Msfcpi89sxMq+EWTTAhmSHlGkpCrm3HiNpz26MFs/6AvEUhXbR8A6LSQUymtijQlqpJwhe0xp+T08zt/Cvc2C7PkSeLpX0aGln0ieZXBPryenpg/ZNfbnX8O8DqAn7H0Mx/z4UpVtx1SRLhUB2tY29+UcnSx7eV2HTVFEyRqpUrI55BDks4kSR1r3tlFg59HXHdJ6UVbnOXCmBUzu1MW+3/CbUvUFp8=#%F0%9F%87%B8%F0%9F%87%ACNEWSTSNOLOAD
-            </div>
-            <button class="btn btn-copy" onclick="copyText('config4', 'msg4')">📋 Copy</button>
-            <div class="copied-msg" id="msg4">✅copy</div>
-        </div>
-
-        <!-- 5. SAYA ALL TNT 99 & GLOBE TIKTOK BYPASS -->
-        <div class="config-card">
-            <div class="config-title">🌐 NETMOD SAYA ALL 99 TNT / GLOBE TIKTOK</div>
-            <div class="config-box" id="config5">
-nm-ssh://f8fb8QIv6KOMi2m+n9hEifEJvRz9Qq+A/PGH+znHlvgaDP02MY3f7pUeTv/BlGYiz1dITxk4NIXwKrGihcVP0o8sm217rVVoRAO0YkIpuTIu1d4wItLuvWHkD9Q/5qTEUkTJw7jhCDzG/LY7rqoiKfe+vJY6npcyO1nKzI8eDtdoxauQGAWnOUOJ1Mip8g1HS8yaTQSjhyk9ZXc7ky3M8txv5PrONNLNhJxMMEU3OnVvp+fuDndtzQyh2O4WyEOPvDhK/YKgpJdqCFShH3qw4a9FvYyuPIgWtCzyarIv4Oz5QwYLj9dedwEtr+JdzXmoh8SiRAwb9j8aZPbpkoIuKUmPlxGW7dh629TKAhWhzmAIgdCFqKrrbvPXW3HRKBQVvRqyqHJPBIlZxHhajbAq7WXPWuaTI02RPLADRZHwutnQz4NDsgc49C8QxQJdnsXgMM2CU1TXshHhSsksR12NGTOUHCiecCs2Y7Xsg7USo0MS9HAsi7Yd4R8WxS7Gx1ePM1XchvrveliybUCKfCSgJvlJVTndl/hffbJvP6C21t56IC3cwpC6akLqo7lJ4XK9NMmD1lqoB8I/E+Tde3BC6DK7gPX62vCtr5+g3Z7CnSju/VYCCJXtt7t2ty/yjaLTo2gVm4ocl70kw9uOclT2503KikkBlxuANjHHh+5LVv4QUkI90BxlVhfoOc2M8CJIbqyfqJisMO1qHV6ySNQzJ4oCb9uzr1DI9o5ZbcMZBkGdiLvu4sc9e5qSzO/EGPIxr4IcAYSTOGX/eGLAeXkcM//+jvYKjJMu7dtT7r27mRM=
-            </div>
-            <button class="btn btn-copy" onclick="copyText('config5', 'msg5')">📋 Copy</button>
-            <div class="copied-msg" id="msg5">✅copy</div>
-        </div>
-
-        <!-- 6. BOYSUPOTPH GCP SSH 1 -->
-        <div class="config-card">
-            <div class="config-title">🌐 NETMOD SSH GCP ALL CONNECTION</div>
-            <div class="config-box" id="config6">
-ssh://master:boysupot@vpn.googleapis.com:443?KUX3sw04Vw3D4VZXnUUdx5w2olLTqhuGQNU7herX/y1+G4NHVbZAqskX3V0NNf7dkKWRsCBsXTG3qdxBQSwIR8zy1Hai/ilK8eQb2RlN/GcCNd0P3upZCxoih2cq3UrcL1YUqR6GgFNirQH8uavnX9k9uOo2SjMRFXgcDbb2JegIAwzr+SrFYDhLcpLYDO31DJy37v0gvmhcnKnHkqDjNYy/oPY+wukc2+gHUbWC8AXfKNWl7uJZIoKwR59Fk4E//i0PXb/pvwtFTUgJJl4cH6e7GNUM3g1Id3I03TucmSEUeQq/LOBbcQ4d0LbZMp4woUGMJMWdEEL9I0tjEKN+Eg==#BOYSUPOTPH%20GCP%20SSH%201
-            </div>
-            <button class="btn btn-copy" onclick="copyText('config6', 'msg6')">📋 Copy</button>
-            <div class="copied-msg" id="msg6">✅copy</div>
-        </div>
-
-        <!-- 7. TROJAN Config -->
-        <div class="config-card">
-            <div class="config-title">🌐 NETMOD TROJAN GCP</div>
-            <div class="config-box" id="config7">
-trojan://Billy@vpn.googleapis.com:443?type=ws&host=master-625344316023.asia-east1.run.app&headerType=none&path=%2Fmaster-trojan&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Trojan%20%20
-            </div>
-            <button class="btn btn-copy" onclick="copyText('config7', 'msg7')">📋 Copy</button>
-            <div class="copied-msg" id="msg7">✅copy</div>
-        </div>
-
-        <a href="#" class="btn-link">FEATURING NETMOD APP</a>
-
-        <div class="footer">
-            © 2026 TeamFreenet | All Rights Reserved
+<div class="grid">
+    <div class="grid-card">
+        <div class="card-label">📡 Server Status</div>
+        <div class="status-indicator">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Checking...</span>
         </div>
     </div>
+    <div class="grid-card">
+        <div class="card-label">⏰ Expiry Date</div>
+        <div class="expiry-text" id="expiryDate">--/--/----</div>
+    </div>
+</div>
 
-    <script>
-        const SERVER_STATUS = 'online';
-        const EXPIRY_DATE = 'Dec 31, 2030';
+<!-- CONFIG 1 -->
+<div class="config-card">
+    <div class="config-title">🌐 NETMOD VLESS GCP</div>
+    <div class="config-box" id="config1">vless://123e4567-e89b-12d3-a456-426655440000@vpn.googleapis.com:443?encryption=none&type=ws&host=master3-625344316023.asia-southeast1.run.app&headerType=none&path=%2Fmaster-vless&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Vless</div>
+    <button class="btn btn-copy" onclick="copyText('config1','msg1')">📋 Copy</button>
+    <div class="copied-msg" id="msg1">✅ Copied!</div>
+</div>
 
-        window.onload = function() {
-            const statusDot = document.getElementById('statusDot');
-            const statusText = document.getElementById('statusText');
-            const expiryDate = document.getElementById('expiryDate');
+<!-- CONFIG 2 -->
+<div class="config-card">
+    <div class="config-title">🌐 NETMOD IWANT TV BYPASS</div>
+    <div class="config-box" id="config2">nm-vless://DkF8nBQJad+AsabWEOEOQeeJrNJ+U0HZw6tvup3nJe8+MyNzqvDpxFKlzGVFB0eCXud1zZjGsaPNGKL+Xo7WNz3rwbT048UMssJ7NlIyCZP5vfZsKCjHuvJbS/0DWJ82cf9t9131dVw0soJeEsphgCosU9MSXk/GUCa7ASAjintV6/0TrBCj6uU8w7N+BXMyCqvUe57d4lkqkBv251uOohXWbGNC+7TLOxjhSby3icyGw9ZDvCLPvJCMaI0hV203Bn4d6gII6R3HzLWkahkdWBVs+iOHDkWcP4MQ+Skh54bYxLDONKmNcznKqrvCsR5w2n6zI6Yb4zrHz7y4JtnVn260GS5NJpr9C7NSprOaEt4=</div>
+    <button class="btn btn-copy" onclick="copyText('config2','msg2')">📋 Copy</button>
+    <div class="copied-msg" id="msg2">✅ Copied!</div>
+</div>
 
-            if (SERVER_STATUS === 'online') {
-                statusText.textContent = 'Online';
-                statusDot.className = 'status-dot';
-            } else {
-                statusText.textContent = 'Offline';
-                statusDot.className = 'status-dot offline';
-            }
+<!-- CONFIG 3 -->
+<div class="config-card">
+    <div class="config-title">🌐 NETMOD DATA MAX BYPASS</div>
+    <div class="config-box" id="config3">ssh://sytama:sytama@tiktok.teamfreenet.sbs:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIls9V92UQ5EEQQUjVO/wu/2SzQFgWjKDpP2//YaEwFMVhDX50YiyMmNhgtC0zRtfMVBciNxYGN7hwmqY4J/HK/ufpuzN/ezZGMzCpRuW+4Vh/YEHIJXURq6KhhLjkqm6EIDQupyOJ7uvD1BmDOMZESP1cRaiYNVMtu+JGOOFEhKVDMngB7kwU6qdcOl3FBfcYHxXWlolNH3NCE2upN44bbt30CbkkssPMHYEltybnoMm4ZP2n8CX0px6InhQPw642TqPmN4YdFepuTzRgslbunMJB3i+oR5RFwmwrEySpxBU09kLEPgvoXw5QuUFFd4HxUAKZeSMfnYEGX7B26l9Gd2kLkDIehBE/iTSUNyHZ2yCgP+RRSA+CDOLU2UumNme4VSn3PZFFmdLqkglTmR132XtWn/wrXk06BUl2kYdOUllVmnLtqyVM1yniiMNumXhO4SfqzQQeXngS9I+MpeN1S#DATA%20MAXX%26UNLI%20SOCIAL%20NO%20BAWAS</div>
+    <button class="btn btn-copy" onclick="copyText('config3','msg3')">📋 Copy</button>
+    <div class="copied-msg" id="msg3">✅ Copied!</div>
+</div>
 
-            expiryDate.textContent = EXPIRY_DATE;
-        };
+<!-- CONFIG 4 -->
+<div class="config-card">
+    <div class="config-title">🌐 NETMOD STS NOLOAD CF</div>
+    <div class="config-box" id="config4">ssh://Kingkon:Kingkon@www.mypocketdoctor.com:443?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIHl/GyXRQVayvTw7BFsPuoXqHE9dswLuALeabPrg16Ofy+Y0ln1QKp2bF3LtVYE0eeE0rcYmiPwR2eEkUcYi6alcXakHl8lCeLWjEcpF322VzVzSs3qTU5VUiKGOvGdOmHaYuMoh9HXV9tyIQtt6t3ZpvFRWhdk4qs8J8rvgwuCpztMx6DpYzXqOugSJATsh3eh+PtEjWtgXCW61V6Jn/bFpxHzRZjsZy+9DofzCklZfuTJtXViUhY67V4NAqZT/a3N6P6eSqVnMuPoS8QqPFIWsybTsXmXYQXTiq4lRhN5xUpoM21psW+uW1x5kMt556YMhWVS2KUuY4hgnSD0C5KJ3hBc6vyN5J1Msfcpi89sxMq+EWTTAhmSHlGkpCrm3HiNpz26MFs/6AvEUhXbR8A6LSQUymtijQlqpJwhe0xp+T08zt/Cvc2C7PkSeLpX0aGln0ieZXBPryenpg/ZNfbnX8O8DqAn7H0Mx/z4UpVtx1SRLhUB2tY29+UcnSx7eV2HTVFEyRqpUrI55BDks4kSR1r3tlFg59HXHdJ6UVbnOXCmBUzu1MW+3/CbUvUFp8=#%F0%9F%87%B8%F0%9F%87%ACNEWSTSNOLOAD</div>
+    <button class="btn btn-copy" onclick="copyText('config4','msg4')">📋 Copy</button>
+    <div class="copied-msg" id="msg4">✅ Copied!</div>
+</div>
 
-        function copyText(textId, msgId) {
-            const element = document.getElementById(textId);
-            const text = element.innerText.trim();
-            const msg = document.getElementById(msgId);
+<!-- CONFIG 5 -->
+<div class="config-card">
+    <div class="config-title">🌐 NETMOD SAYA ALL 99 TNT / GLOBE TIKTOK</div>
+    <div class="config-box" id="config5">nm-ssh://f8fb8QIv6KOMi2m+n9hEifEJvRz9Qq+A/PGH+znHlvgaDP02MY3f7pUeTv/BlGYiz1dITxk4NIXwKrGihcVP0o8sm217rVVoRAO0YkIpuTIu1d4wItLuvWHkD9Q/5qTEUkTJw7jhCDzG/LY7rqoiKfe+vJY6npcyO1nKzI8eDtdoxauQGAWnOUOJ1Mip8g1HS8yaTQSjhyk9ZXc7ky3M8txv5PrONNLNhJxMMEU3OnVvp+fuDndtzQyh2O4WyEOPvDhK/YKgpJdqCFShH3qw4a9FvYyuPIgWtCzyarIv4Oz5QwYLj9dedwEtr+JdzXmoh8SiRAwb9j8aZPbpkoIuKUmPlxGW7dh629TKAhWhzmAIgdCFqKrrbvPXW3HRKBQVvRqyqHJPBIlZxHhajbAq7WXPWuaTI02RPLADRZHwutnQz4NDsgc49C8QxQJdnsXgMM2CU1TXshHhSsksR12NGTOUHCiecCs2Y7Xsg7USo0MS9HAsi7Yd4R8WxS7Gx1ePM1XchvrveliybUCKfCSgJvlJVTndl/hffbJvP6C21t56IC3cwpC6akLqo7lJ4XK9NMmD1lqoB8I/E+Tde3BC6DK7gPX62vCtr5+g3Z7CnSju/VYCCJXtt7t2ty/yjaLTo2gVm4ocl70kw9uOclT2503KikkBlxuANjHHh+5LVv4QUkI90BxlVhfoOc2M8CJIbqyfqJisMO1qHV6ySNQzJ4oCb9uzr1DI9o5ZbcMZBkGdiLvu4sc9e5qSzO/EGPIxr4IcAYSTOGX/eGLAeXkcM//+jvYKjJMu7dtT7r27mRM=</div>
+    <button class="btn btn-copy" onclick="copyText('config5','msg5')">📋 Copy</button>
+    <div class="copied-msg" id="msg5">✅ Copied!</div>
+</div>
 
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(function() {
-                    showMessage(msg);
-                }).catch(function() {
-                    fallbackCopy(text, msg);
-                });
-            } else {
+<!-- CONFIG 6 -->
+<div class="config-card">
+    <div class="config-title">🌐 NETMOD SSH GCP ALL CONNECTION</div>
+    <div class="config-box" id="config6">ssh://master:boysupot@vpn.googleapis.com:443?KUX3sw04Vw3D4VZXnUUdx5w2olLTqhuGQNU7herX/y1+G4NHVbZAqskX3V0NNf7dkKWRsCBsXTG3qdxBQSwIR8zy1Hai/ilK8eQb2RlN/GcCNd0P3upZCxoih2cq3UrcL1YUqR6GgFNirQH8uavnX9k9uOo2SjMRFXgcDbb2JegIAwzr+SrFYDhLcpLYDO31DJy37v0gvmhcnKnHkqDjNYy/oPY+wukc2+gHUbWC8AXfKNWl7uJZIoKwR59Fk4E//i0PXb/pvwtFTUgJJl4cH6e7GNUM3g1Id3I03TucmSEUeQq/LOBbcQ4d0LbZMp4woUGMJMWdEEL9I0tjEKN+Eg==#BOYSUPOTPH%20GCP%20SSH%201</div>
+    <button class="btn btn-copy" onclick="copyText('config6','msg6')">📋 Copy</button>
+    <div class="copied-msg" id="msg6">✅ Copied!</div>
+</div>
+
+<!-- CONFIG 7 -->
+<div class="config-card">
+    <div class="config-title">🌐 NETMOD TROJAN GCP</div>
+    <div class="config-box" id="config7">trojan://Billy@vpn.googleapis.com:443?type=ws&host=master-625344316023.asia-east1.run.app&headerType=none&path=%2Fmaster-trojan&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Trojan%20%20</div>
+    <button class="btn btn-copy" onclick="copyText('config7','msg7')">📋 Copy</button>
+    <div class="copied-msg" id="msg7">✅ Copied!</div>
+</div>
+
+<!-- CONFIG 8: DARKTUNNEL GTM NO BLOCKING -->
+<div class="config-card">
+    <div class="config-title">🌐 DARKTUNNEL GTM NO BLOCKING</div>
+    <div class="config-box" id="config8">darktunnel://eyJ0eXBlIjoiVkxFU1MiLCJuYW1lIjoiR1RNIE5PQkxPQ0tJTkciLCJ2bGVzc1R1bm5lbENvbmZpZyI6eyJ2MnJheUNvbmZpZyI6eyJob3N0IjoiZ3Byby1pYW0taW50ZXJuYWwuZ2Nhc2guY29tIiwicG9ydCI6NDQzLCJ1dWlkIjoiMTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwIiwic2VydmVyTmFtZUluZGljYXRpb24iOiJwZTEuYmxvZ2Jsb2cuY29tIiwid3NQYXRoIjoiL21hc3Rlci12bGVzcyIsIndzSGVhZGVySG9zdCI6Im1hc3RlcjQtNjI1MzQ0MzE2MDIzLmFzaWEtc291dGhlYXN0MS5ydW4uYXBwIn0sImluamVjdENvbmZpZyI6eyJlbmFibGVkIjp0cnVlLCJtb2RlIjoiUFJPWFkiLCJwcm94eUhvc3QiOiJpb3JnLWZiYS1lZGdlLXNodi0wMi1jY3UxLmZhY2Vib29rLmNvbSIsInBheWxvYWQiOiJDT05ORUNUIHBlMS5ibG9nYmxvZy5jb206NDQzIEhUVFAvMS4xW2NybGZdeC1jb25uZWN0ZWQtdG86IGlvcmctZmJhLWVkZ2Utc2h2LTAyLWNjdTEuZmFjZWJvb2suY29tW2NybGZddXNlci1hZ2VudDogRkJBVi8wLjAuMFtjcmxmXXgtaW9yZy1ic2lkOiBARU1BTFtjcmxmXVtjcmxmXSJ9fX0=</div>
+    <button class="btn btn-copy" onclick="copyText('config8','msg8')">📋 Copy</button>
+    <div class="copied-msg" id="msg8">✅ Copied!</div>
+</div>
+
+<a href="#" class="btn-link">FEATURING NETMOD APP</a>
+
+<div class="footer">
+    © 2026 TeamFreenet | All Rights Reserved
+</div>
+
+</div>
+
+<script>
+const SERVER_STATUS = 'online';
+const EXPIRY_DATE = 'Dec 31, 2030';
+
+window.onload = function() {
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    const expiryDate = document.getElementById('expiryDate');
+
+    if (SERVER_STATUS === 'online') {
+        statusText.textContent = 'Online';
+        statusDot.className = 'status-dot';
+    } else {
+        statusText.textContent = 'Offline';
+        statusDot.className = 'status-dot offline';
+    }
+
+    expiryDate.textContent = EXPIRY_DATE;
+};
+
+function copyText(textId, msgId) {
+    const element = document.getElementById(textId);
+    const text = element.innerText.trim();
+    const msg = document.getElementById(msgId);
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text)
+            .then(function() {
+                showMessage(msg);
+            })
+            .catch(function() {
                 fallbackCopy(text, msg);
-            }
-        }
+            });
+    } else {
+        fallbackCopy(text, msg);
+    }
+}
 
-        function fallbackCopy(text, msg) {
-            const tempInput = document.createElement('textarea');
-            tempInput.value = text;
-            tempInput.style.position = 'fixed';
-            tempInput.style.opacity = '0';
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            tempInput.setSelectionRange(0, 99999);
-            try {
-                const successful = document.execCommand('copy');
-                if (successful) {
-                    showMessage(msg);
-                } else {
-                    alert('❌ Hindi automatic na-copy. Piliin at i-copy nang manual ang link.');
-                }
-            } catch (err) {
-                alert('❌ Hindi automatic na-copy. Piliin at i-copy nang manual ang link.');
-            }
-            document.body.removeChild(tempInput);
-        }
+function fallbackCopy(text, msg) {
+    const tempInput = document.createElement('textarea');
+    tempInput.value = text;
+    tempInput.style.position = 'fixed';
+    tempInput.style.opacity = '0';
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999);
 
-        function showMessage(msg) {
-            msg.style.display = 'block';
-            setTimeout(function() {
-                msg.style.display = 'none';
-            }, 3000);
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+            showMessage(msg);
+        } else {
+            alert('❌ Hindi automatic na-copy. Piliin at i-copy nang manual ang link.');
         }
-    </script>
+    } catch (err) {
+        alert('❌ Hindi automatic na-copy. Piliin at i-copy nang manual ang link.');
+    }
+
+    document.body.removeChild(tempInput);
+}
+
+function showMessage(msg) {
+    msg.style.display = 'block';
+    setTimeout(function() {
+        msg.style.display = 'none';
+    }, 3000);
+}
+</script>
+
 </body>
 </html>
