@@ -3,390 +3,380 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamFreenet</title>
+    <title>TeamFreenet Panel</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
         body {
-            background: #0a0a18;
             min-height: 100vh;
-            padding: 20px;
-            padding-bottom: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             color: white;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.06) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container { max-width: 450px; margin: 0 auto; position: relative; z-index: 1; }
-
-        .header-profile { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; margin-top: 10px; }
-        .avatar { 
-            width: 60px; height: 60px; border-radius: 50%; 
-            background: linear-gradient(135deg, #00ffff, #ff00ff);
-            display: flex; align-items: center; justify-content: center;
-            border: 3px solid #00ffff;
-            box-shadow: 0 0 20px #00ffff;
-            font-weight: bold; font-size: 22px; color: #000;
-        }
-        .name { 
-            font-size: 24px; font-weight: bold;
-            color: #00ffff;
-            text-shadow: 0 0 10px #00ffff;
-        }
-
-        .status-card {
-            background: rgba(15, 15, 35, 0.85);
-            border-radius: 16px;
             padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
         }
 
-        .status-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .online-dot { display: flex; align-items: center; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 8px #00ff88; animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0%,100% { box-shadow: 0 0 8px #00ff88; }
-            50% { box-shadow: 0 0 15px #00ff88, 0 0 25px #00ff88; }
-        }
-        .online-text { color: #00ff88; font-weight: 600; }
-        .country { display: flex; align-items: center; gap: 6px; }
-        .flag { font-size: 22px; }
-
-        .protocols-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 0; }
-        .proto-tag {
-            background: rgba(30, 30, 60, 0.6);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 14px;
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 25px 20px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .vless { color: #ff6b8b; }
-        .vmess { color: #ffd166; }
-        .trojan { color: #c792ea; }
-        .ss { color: #80ffea; }
-        .darktunnel { color: #ffcc00; }
 
-        h1 {
-            font-size: 48px;
-            font-weight: bold;
+        .header {
             text-align: center;
-            margin: 20px 0;
-            background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: textGlow 3s linear infinite;
-            filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
+            margin-bottom: 15px;
         }
 
-        @keyframes textGlow {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 5px;
         }
 
-        .info-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 25px; }
-        .info-tag {
-            background: rgba(30, 30, 60, 0.6);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 15px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            color: #00ffff;
+        .tagline {
+            color: #94a3b8;
+            font-size: 13px;
         }
 
-        .card {
-            background: rgba(15, 15, 35, 0.85);
-            border-radius: 16px;
-            padding: 20px;
+        .telegram-section {
+            background: rgba(38, 165, 228, 0.1);
+            border: 1px solid rgba(38, 165, 228, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
             margin-bottom: 20px;
-            border: 1px solid rgba(100, 100, 180, 0.2);
         }
 
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .card-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .badge { 
-            padding: 4px 12px; 
-            border-radius: 20px; 
-            font-size: 13px; 
+        .telegram-note {
+            font-size: 13px;
+            color: #93c5fd;
+            margin-bottom: 10px;
+        }
+
+        .telegram-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #26a5e4, #0088cc);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 15px;
             font-weight: 600;
         }
-        .badge-ws-tls { background: linear-gradient(90deg, #cc44ff, #6666ff); color: white; }
-        .badge-ws-tls-vmess { background: linear-gradient(90deg, #ffaa00, #ff8800); color: white; }
-        .badge-ws-tls-ss { background: linear-gradient(90deg, #00ccaa, #00ee88); color: white; }
-        .badge-darktunnel { background: linear-gradient(90deg, #ffcc00, #ff9900); color: #000; }
-        .badge-ssh-tnt { background: linear-gradient(90deg, #00b4d8, #0077b6); color: white; }
-        .badge-ssh-gcp { background: linear-gradient(90deg, #00cc66, #00ff99); color: #000; }
 
-        .link-box {
-            background: #001a0a;
-            padding: 14px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 10px;
-            word-break: break-all;
-            margin-bottom: 15px;
-            color: #00ff88;
-            border: 1px solid rgba(0, 255, 136, 0.25);
-            line-height: 1.5;
-        }
-
-        .copy-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #cc44ff, #00ccff);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .copy-btn:active { transform: scale(0.97); }
-        .copy-btn.copied { background: linear-gradient(90deg, #00aa55, #00dd77); }
-
-        /* 📢 TELEGRAM BUTTON */
-        .telegram-section {
-            margin-top: 30px;
-            text-align: center;
-        }
-        .telegram-btn {
-            display: inline-flex;
-            align-items: center;
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
-            background: linear-gradient(90deg, #0088cc, #0099dd);
-            color: white;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-size: 17px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(0, 136, 204, 0.3);
+            margin-bottom: 18px;
         }
-        .telegram-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(0, 136, 204, 0.5);
-        }
-        .telegram-icon { font-size: 22px; }
 
-        /* 📝 NOTE SECTION */
-        .note-box {
-            margin-top: 25px;
-            padding: 16px;
-            background: rgba(0, 50, 80, 0.4);
-            border: 1px solid rgba(0, 200, 255, 0.3);
-            border-radius: 12px;
+        .grid-card {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             text-align: center;
         }
-        .note-text {
-            color: #80ffff;
-            font-size: 15px;
-            font-weight: 500;
-            line-height: 1.6;
+
+        .card-label {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 6px;
         }
-        .note-highlight {
-            color: #00ffcc;
-            font-weight: bold;
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.offline {
+            background: #ef4444;
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .expiry-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fbbf24;
+        }
+
+        .config-card {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .config-title {
+            font-size: 14px;
+            color: #93c5fd;
+            margin-bottom: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .config-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 8px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 7px;
+            color: #a5f3fc;
+            line-height: 1.4;
+            user-select: text;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn-copy {
+            background: linear-gradient(90deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-link {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background: linear-gradient(90deg, #06b6d4, #3b82f6);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .copied-msg {
+            display: none;
+            color: #10b981;
+            font-size: 11px;
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        @media (max-width: 380px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header-profile">
-            <div class="avatar">TF</div>
-            <div class="name">TeamFreenet</div>
+        <div class="header">
+            <div class="logo">🌐 TeamFreenet</div>
+            <p class="tagline">Fast • Secure • Free Internet Tools</p>
         </div>
 
-        <div class="status-card">
-            <div class="status-top">
-                <div class="online-dot">
-                    <span class="dot"></span>
-                    <span class="online-text">SERVER ONLINE</span>
+        <!-- TELEGRAM SECTION -->
+        <div class="telegram-section">
+            <div class="telegram-note">📢 <strong>Note:</strong> Join our Telegram group for updates, new configs & support!</div>
+            <a href="https://t.me/+7JVXaDEgf2I4NWZl" target="_blank" class="telegram-btn">👉 Join Telegram Group</a>
+        </div>
+
+        <div class="grid">
+            <div class="grid-card">
+                <div class="card-label">📡 Server Status</div>
+                <div class="status-indicator">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">Checking...</span>
                 </div>
-                <div class="country">
-                    <span class="flag">🇸🇬</span>
-                </div>
             </div>
-            <div class="protocols-row">
-                <span class="proto-tag vless">● VLESS GCP 1</span>
-                <span class="proto-tag vmess">● IWANTTV 1</span>
-                <span class="proto-tag trojan">● Trojan GCP 1</span>
-                <span class="proto-tag ss">● SSH 4</span>
-                <span class="proto-tag ss">● DATAMAX 1</span>
-                <span class="proto-tag darktunnel">● DarkTunnel 1</span>
+            <div class="grid-card">
+                <div class="card-label">⏰ Expiry Date</div>
+                <div class="expiry-text" id="expiryDate">--/--/----</div>
             </div>
         </div>
 
-        <h1>TeamFreenet</h1>
-
-        <div class="info-tags">
-            <span class="info-tag">● 5 Protocols</span>
-            <span class="info-tag">Port 443/80</span>
-            <span class="info-tag">WebSocket</span>
-            <span class="info-tag">TLS</span>
+        <!-- 1. IWANT TV UNLIMITED GCP -->
+        <div class="config-card">
+            <div class="config-title">🔐 IWANT TV UNLIMITED GCP</div>
+            <div class="config-box" id="config1">
+vless://123e4567-e89b-12d3-a456-426655440000@vpn.googleapis.com:443?encryption=none&type=ws&host=master-703594529660.asia-southeast1.run.app&headerType=none&path=%2Fmaster-vless&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#%20IWANT%20TV%20UNLIMITED%20GCP
+            </div>
+            <button class="btn btn-copy" onclick="copyText('config1', 'msg1')">📋 Copy</button>
+            <div class="copied-msg" id="msg1">✅copy</div>
         </div>
 
-        <!-- VLESS GCP TNT NOLOAD -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 VLESS GCP </div>
-                <span class="badge badge-ws-tls">WS · TLS</span>
-            </div>
-            <div class="link-box" id="vlessText">
-vless://123e4567-e89b-12d3-a456-426655440000@vpn.googleapis.com:443?encryption=none&type=ws&host=master3-625344316023.asia-southeast1.run.app&headerType=none&path=%2Fmaster-vless&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Vless
-            </div>
-            <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- NETMOD SYNA DATAMAX -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 NETMOD SYNA DATAMAX</div>
-                <span class="badge badge-ws-tls-vmess">SSH · 443/80</span>
-            </div>
-            <div class="link-box" id="vmessText">
-nm-ssh://tQ4hO24NSwWzMshK68Hr3+9fite/OAinmKBs8SqBj2LNPtG7/qx42JIzrgbuFIVyXktxttItzaIpG91ZMHVYdX9H5C0ggM+UBPnNUZMTlSLuYVBGRHCV9KM1AGr7ZBEktjliXdwETzmsyZG/HUjiEIVO+383SAuI5rov+LBCq4G8iLkdRyrMN9KTodpvNnL/YWJxFiQ8J1LOXFf445dzmEbIRwuJQIumoHAQ0y54CDCTbN3bdZ12xopKCUHwiuW+L9HaG/LMlrW6bwl1Tv3wWP1LYQ9cXWdxKkBFQ2xM2ru/MpWo8WO9tEZpnQ9mqBEHzHWbzEoauIUevLQ1K7B2zDAvkHuYUU6GluGPTfkIMdkYxAxQBJo9uGXs/z4xaNazdf3IRnFr1fN7T5fkem0zWlVc22qw4nAm79PrcyTJvWHPv329KuU6Qcc5YotoKmySKcdpJs+pv2NiuzaMRQ79NS7tvUrE+H155Y8APMPwL0rV2MfZrr1U1Aia7hgBBxU3B0a5tflUaLh5X9zzVNbRAAZUDaJFVNWsoar6+Nk4Xyv9bmcxFypIAtNgNBVyQ7/d5gNSEcwGelkc9QtJSGY4GZG1ZXhCrZ+1a+I3QxO7tbD+UnUp7gXV+hNkaR68wGGD9lHsb02GAYXTovZd2rE9E2VHXE1cVb6nBnrZAo7M5zKUsGmsLKv3jYUhKiKTwXojuUcEKMsmSsLFfu/jHTSRWfPgRz7mqMbx8RuzCpgzysUirQKgqywIyVGMa2K6d3f19DFBNFuUJCcZLaTloSDj4Oz+/6MBQ84+VyO5Uzqw2+UOwmATGoBrrWSCAbgz3Nwr
-            </div>
-            <button class="copy-btn" onclick="copyText('vmessText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- TROJAN GCP -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 TROJAN GCP </div>
-                <span class="badge badge-ws-tls">WS · TLS</span>
-            </div>
-            <div class="link-box" id="trojanText">
-trojan://Billy@vpn.googleapis.com:443?type=ws&host=master-625344316023.asia-east1.run.app&headerType=none&path=%2Fmaster-trojan&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Trojan%20%20
-            </div>
-            <button class="copy-btn" onclick="copyText('trojanText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- NETMOD SYNA IWANTTV -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 NETMOD SYNA IWANTTV</div>
-                <span class="badge badge-ws-tls-ss">WS.TLS</span>
-            </div>
-            <div class="link-box" id="ssText">
+        <!-- 2. IWANT TV BYPASS -->
+        <div class="config-card">
+            <div class="config-title">🔓 IWANT TV BYPASS</div>
+            <div class="config-box" id="config2">
 nm-vless://DkF8nBQJad+AsabWEOEOQeeJrNJ+U0HZw6tvup3nJe8+MyNzqvDpxFKlzGVFB0eCXud1zZjGsaPNGKL+Xo7WNz3rwbT048UMssJ7NlIyCZP5vfZsKCjHuvJbS/0DWJ82cf9t9131dVw0soJeEsphgCosU9MSXk/GUCa7ASAjintV6/0TrBCj6uU8w7N+BXMyCqvUe57d4lkqkBv251uOohXWbGNC+7TLOxjhSby3icyGw9ZDvCLPvJCMaI0hV203Bn4d6gII6R3HzLWkahkdWBVs+iOHDkWcP4MQ+Skh54bYxLDONKmNcznKqrvCsR5w2n6zI6Yb4zrHz7y4JtnVn260GS5NJpr9C7NSprOaEt4=
             </div>
-            <button class="copy-btn" onclick="copyText('ssText', this)">📋 Copy Link</button>
+            <button class="btn btn-copy" onclick="copyText('config2', 'msg2')">📋 Copy</button>
+            <div class="copied-msg" id="msg2">✅copy</div>
         </div>
 
-        <!-- NETMOD SYNA CF STS -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 NETMOD SYNA CF STS</div>
-                <span class="badge badge-ws-tls-ss">SSH · 443/80</span>
+        <!-- 3. DATA MAX BYPASS -->
+        <div class="config-card">
+            <div class="config-title">🚀 DATA MAX BYPASS</div>
+            <div class="config-box" id="config3">
+nm-ssh://tQ4hO24NSwWzMshK68Hr3+9fite/OAinmKBs8SqBj2LNPtG7/qx42JIzrgbuFIVyXktxttItzaIpG91ZMHVYdX9H5C0ggM+UBPnNUZMTlSLuYVBGRHCV9KM1AGr7ZBEktjliXdwETzmsyZG/HUjiEIVO+383SAuI5rov+LBCq4G8iLkdRyrMN9KTodpvNnL/YWJxFiQ8J1LOXFf445dzmEbIRwuJQIumoHAQ0y54CDCTbN3bdZ12xopKCUHwiuW+L9HaG/LMlrW6bwl1Tv3wWP1LYQ9cXWdxKkBFQ2xM2ru/MpWo8WO9tEZpnQ9mqBEHzHWbzEoauIUevLQ1K7B2zDAvkHuYUU6GluGPTfkIMdkYxAxQBJo9uGXs/z4xaNazdf3IRnFr1fN7T5fkem0zWlVc22qw4nAm79PrcyTJvWHPv329KuU6Qcc5YotoKmySKcdpJs+pv2NiuzaMRQ79NS7tvUrE+H155Y8APMPwL0rV2MfZrr1U1Aia7hgBBxU3B0a5tflUaLh5X9zzVNbRAAZUDaJFVNWsoar6+Nk4Xyv9bmcxFypIAtNgNBVyQ7/d5gNSEcwGelkc9QtJSGY4GZG1ZXhCrZ+1a+I3QxO7tbD+UnUp7gXV+hNkaR68wGGD9lHsb02GAYXTovZd2rE9E2VHXE1cVb6nBnrZAo7M5zKUsGmsLKv3jYUhKiKTwXojuUcEKMsmSsLFfu/jHTSRWfPgRz7mqMbx8RuzCpgzysUirQKgqywIyVGMa2K6d3f19DFBNFuUJCcZLaTloSDj4Oz+/6MBQ84+VyO5Uzqw2+UOwmATGoBrrWSCAbgz3Nwr
             </div>
-            <div class="link-box" id="cfstsText">
+            <button class="btn btn-copy" onclick="copyText('config3', 'msg3')">📋 Copy</button>
+            <div class="copied-msg" id="msg3">✅copy</div>
+        </div>
+
+        <!-- 4. STS NOLOAD CF -->
+        <div class="config-card">
+            <div class="config-title">⚡ STS NOLOAD CF</div>
+            <div class="config-box" id="config4">
 ssh://primetech:primetech@www.mypocketdoctor.com:80?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIHl/GyXRQVayvTw7BFsPuoXqHE9dswLuALeabPrg16Ofy+Y0ln1QKp2bF3LtVYE0eeE0rcYmiPwR2eEkUcYi6alcXakHl8lCeLWjEcpF322VzVzSs3qTU5VUiKGOvGdOmHaYuMoh9HXV9tyIQtt6t3ZpvFRWhdk4qs8J8rvgwuCpztMx6DpYzXqOugSJATsh3eh+PtEjWtgXCW61V6Jn/bFpxHzRZjsZy+9DofzCklZfuTJtXViUhY67V4NAqZT/a3N6P6eSqVnMuPoS8QqPFIWsybTsXmXYQXTiq4lRhN5xUpoM21psW+uW1x5kMt556YMhWVS2KUuY4hgnSD0C5KJ3hBc6vyN5J1Msfcpi89sxMq+EWTTAhmSHlGkpCrm3ExvRp/YwsCqXQKWINquTuAMIErTX6TqPManGVLhstCSfILdEJfxh0xV9b1rOW4CtB49lMI+Sx3zsc0adMhd3K7bQkEyrF+kz9a9g30iaIHbXv34JUy/SDbw0GTYbqtFXe45ufYkiZqe8Dni6LRfbKUGxQ3M8uAhL9wnOSfmLPI4iwb41xzoSQCfpABX20229Q=#TNT%20NOLOAD%20BOYSUPOTPH
             </div>
-            <button class="copy-btn" onclick="copyText('cfstsText', this)">📋 Copy Link</button>
+            <button class="btn btn-copy" onclick="copyText('config4', 'msg4')">📋 Copy</button>
+            <div class="copied-msg" id="msg4">✅copy</div>
         </div>
 
-        <!-- SAYA ALL 99 TNT NO BAWAS -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 NETMOD SYNA SAYA ALL 99 TNT</div>
-                <span class="badge badge-ssh-tnt">SSH · 80</span>
-            </div>
-            <div class="link-box" id="sayaText">
+        <!-- 5. SAYA ALL 99 & GLOBE TIKTOK BYPASS -->
+        <div class="config-card">
+            <div class="config-title">💎 SAYA ALL 99 / GLOBE TIKTOK</div>
+            <div class="config-box" id="config5">
 nm-ssh://f8fb8QIv6KOMi2m+n9hEifEJvRz9Qq+A/PGH+znHlvgaDP02MY3f7pUeTv/BlGYiz1dITxk4NIXwKrGihcVP0o8sm217rVVoRAO0YkIpuTIu1d4wItLuvWHkD9Q/5qTEUkTJw7jhCDzG/LY7rqoiKfe+vJY6npcyO1nKzI8eDtdoxauQGAWnOUOJ1Mip8g1HS8yaTQSjhyk9ZXc7ky3M8txv5PrONNLNhJxMMEU3OnVvp+fuDndtzQyh2O4WyEOPvDhK/YKgpJdqCFShH3qw4a9FvYyuPIgWtCzyarIv4Oz5QwYLj9dedwEtr+JdzXmoh8SiRAwb9j8aZPbpkoIuKUmPlxGW7dh629TKAhWhzmAIgdCFqKrrbvPXW3HRKBQVvRqyqHJPBIlZxHhajbAq7WXPWuaTI02RPLADRZHwutnQz4NDsgc49C8QxQJdnsXgMM2CU1TXshHhSsksR12NGTOUHCiecCs2Y7Xsg7USo0MS9HAsi7Yd4R8WxS7Gx1ePM1XchvrveliybUCKfCSgJvlJVTndl/hffbJvP6C21t56IC3cwpC6akLqo7lJ4XK9NMmD1lqoB8I/E+Tde3BC6DK7gPX62vCtr5+g3Z7CnSju/VYCCJXtt7t2ty/yjaLTo2gVm4ocl70kw9uOclT2503KikkBlxuANjHHh+5LVv4QUkI90BxlVhfoOc2M8CJIbqyfqJisMO1qHV6ySNQzJ4oCb9uzr1DI9o5ZbcMZBkGdiLvu4sc9e5qSzO/EGPIxr4IcAYSTOGX/eGLAeXkcM//+jvYKjJMu7dtT7r27mRM=
             </div>
-            <button class="copy-btn" onclick="copyText('sayaText', this)">📋 Copy Link</button>
+            <button class="btn btn-copy" onclick="copyText('config5', 'msg5')">📋 Copy</button>
+            <div class="copied-msg" id="msg5">✅copy</div>
         </div>
 
-        <!-- 🌐 SSH GCP ALL CONNECTION -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 SSH GCP ALL CONNECTION</div>
-                <span class="badge badge-ssh-gcp">SSH · GCP</span>
-            </div>
-            <div class="link-box" id="sshGcpText">
+        <!-- 6. BOYSUPOTPH GCP SSH 1 -->
+        <div class="config-card">
+            <div class="config-title">🌐 BOYSUPOTPH GCP SSH 1</div>
+            <div class="config-box" id="config6">
 ssh://master:boysupot@vpn.googleapis.com:443?KUX3sw04Vw3D4VZXnUUdx5w2olLTqhuGQNU7herX/y1+G4NHVbZAqskX3V0NNf7dkKWRsCBsXTG3qdxBQSwIR8zy1Hai/ilK8eQb2RlN/GcCNd0P3upZCxoih2cq3UrcL1YUqR6GgFNirQH8uavnX9k9uOo2SjMRFXgcDbb2JegIAwzr+SrFYDhLcpLYDO31DJy37v0gvmhcnKnHkqDjNYy/oPY+wukc2+gHUbWC8AXfKNWl7uJZIoKwR59Fk4E//i0PXb/pvwtFTUgJJl4cH6e7GNUM3g1Id3I03TucmSEUeQq/LOBbcQ4d0LbZMp4woUGMJMWdEEL9I0tjEKN+Eg==#BOYSUPOTPH%20GCP%20SSH%201
-              </div>
-            <button class="copy-btn" onclick="copyText('sshGcpText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- 🌐 DARKTUNEL -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 DARKTUNNEL GTM Free</div>
-                <span class="badge badge-darktunnel">VLESS · INJECT</span>
             </div>
-            <div class="link-box" id="darktunnelText">
-darktunnel://eyJ0eXBlIjoiVkxFU1MiLCJuYW1lIjoiR1RNIGZyZWUiLCJ2bGVzc1R1bm5lbENvbmZpZyI6eyJ2MnJheUNvbmZpZyI6eyJob3N0IjoiZ3Byby1pYW0taW50ZXJuYWwuZ2Nhc2guY29tIiwicG9ydCI6NDQzLCJ1dWlkIjoiMTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwIiwic2VydmVyTmFtZUluZGljYXRpb24iOiJwZTEuYmxvZ2Jsb2cuY29tIiwid3NQYXRoIjoiL21hc3Rlci12bGVzcyIsIndzSGVhZGVySG9zdCI6Im1hc3Rlci0zMDk5Mjc4NDI5MzYuYXNpYS1zb3V0aDEucnVuLmFwcCJ9LCJpbmplY3RDb25maWciOnsiZW5hYmxlZCI6dHJ1ZSwibW9kZSI6IlBST1hZIiwicHJveHlIb3N0IjoiaW9yZy1mYmEtZWRnZS1zaHYtMDItY2N1MS5mYWNlYm9vay5jb20iLCJwYXlsb2FkIjoiQ09OTkVDVCBwZTEuYmxvZ2Jsb2cuY29tOjQ0MyBIVFRQLzEuMVtjcmxmXXgtY29ubmVjdGVkLXRvOiBpb3JnLWZiYS1lZGdlLXNodi0wMi1jY3UxLmZhY2Vib29rLmNvbVtjcmxmXXVzZXItYWdlbnQ6IEZCQVYvMC4wLjBbY3JsZl14LWlvcmctYnNpZDogQEVNQUxbY3JsZl1bY3JsZl0ifX19
+            <button class="btn btn-copy" onclick="copyText('config6', 'msg6')">📋 Copy</button>
+            <div class="copied-msg" id="msg6">✅copy</div>
+        </div>
+
+        <!-- 7. TROJAN Config -->
+        <div class="config-card">
+            <div class="config-title">🔒 TROJAN Config</div>
+            <div class="config-box" id="config7">
+trojan://Billy@vpn.googleapis.com:443?type=ws&host=master-625344316023.asia-east1.run.app&headerType=none&path=%2Fmaster-trojan&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Trojan%20%20
             </div>
-            <button class="copy-btn" onclick="copyText('darktunnelText', this)">📋 Copy Link</button>
+            <button class="btn btn-copy" onclick="copyText('config7', 'msg7')">📋 Copy</button>
+            <div class="copied-msg" id="msg7">✅copy</div>
         </div>
 
-        <!-- 📝 NOTE SECTION -->
-        <div class="note-box">
-            <p class="note-text">
-                <span class="note-highlight">📌 Note:</span><br>
-                Unlimited GCP & WebSocket Protocol<br>
-                <span class="note-highlight">Powered by BOYSUPOTPH 💙</span>
-            </p>
-        </div>
+        <a href="#" class="btn-link">📖 Instructions / Help</a>
 
-        <!-- 📢 TELEGRAM GROUP BUTTON -->
-        <div class="telegram-section">
-            <a href="https://t.me/+7JVXaDEgf2I4NWZl" target="_blank" class="telegram-btn">
-                <span class="telegram-icon">📢</span>
-                Join Our Telegram Group
-            </a>
+        <div class="footer">
+            © 2026 TeamFreenet | All Rights Reserved
         </div>
     </div>
 
     <script>
-        function copyText(elementId, btn) {
-            try {
-                var text = document.getElementById(elementId).innerText.trim();
-                var temp = document.createElement('textarea');
-                temp.value = text;
-                temp.style.position = 'fixed';
-                temp.style.left = '-9999px';
-                temp.style.top = '0';
-                document.body.appendChild(temp);
-                temp.focus();
-                temp.select();
-                var success = document.execCommand('copy');
-                document.body.removeChild(temp);
-                
-                if (success) {
-                    btn.innerText = '✅ COPIED!';
-                    btn.classList.add('copied');
-                    setTimeout(function() {
-                        btn.innerText = '📋 Copy Link';
-                        btn.classList.remove('copied');
-                    }, 2000);
-                } else {
-                    alert('Hindi nakopya — i-highlight at copy na lang nang kamay');
-                }
-            } catch (e) {
-                alert('Error: ' + e.message);
+        const SERVER_STATUS = 'online';
+        const EXPIRY_DATE = 'Dec 31, 2026';
+
+        window.onload = function() {
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+            const expiryDate = document.getElementById('expiryDate');
+
+            if (SERVER_STATUS === 'online') {
+                statusText.textContent = 'Online';
+                statusDot.className = 'status-dot';
+            } else {
+                statusText.textContent = 'Offline';
+                statusDot.className = 'status-dot offline';
             }
+
+            expiryDate.textContent = EXPIRY_DATE;
+        };
+
+        function copyText(textId, msgId) {
+            const element = document.getElementById(textId);
+            const text = element.innerText.trim();
+            const msg = document.getElementById(msgId);
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showMessage(msg);
+                }).catch(function() {
+                    fallbackCopy(text, msg);
+                });
+            } else {
+                fallbackCopy(text, msg);
+            }
+        }
+
+        function fallbackCopy(text, msg) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            tempInput.style.position = 'fixed';
+            tempInput.style.opacity = '0';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999);
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showMessage(msg);
+                } else {
+                    alert('❌ Hindi automatic na-copy. Piliin at i-copy nang manual ang link.');
+                }
+            } catch (err) {
+                alert('❌ Hindi automatic na-copy. Piliin at i-copy nang manual ang link.');
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        function showMessage(msg) {
+            msg.style.display = 'block';
+            setTimeout(function() {
+                msg.style.display = 'none';
+            }, 3000);
         }
     </script>
 </body>
