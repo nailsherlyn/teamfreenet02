@@ -317,7 +317,7 @@ trojan://Billy@vpn.googleapis.com:443?type=ws&host=master-625344316023.asia-east
 
     <script>
         const SERVER_STATUS = 'online';
-        const EXPIRY_DATE = 'LIFETIME';
+        const EXPIRY_DATE = 'Dec 31, 2030';
 
         window.onload = function() {
             const statusDot = document.getElementById('statusDot');
@@ -332,7 +332,7 @@ trojan://Billy@vpn.googleapis.com:443?type=ws&host=master-625344316023.asia-east
                 statusDot.className = 'status-dot offline';
             }
 
-            expiryDate.textContent = NO EXPIRY;
+            expiryDate.textContent = EXPIRY_DATE;
         };
 
         function copyText(textId, msgId) {
