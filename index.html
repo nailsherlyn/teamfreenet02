@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamFreenet</title>
+    <title>TeamFreenet — Maintenance</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
         body {
             background: #0a0a18;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            padding-bottom: 60px;
-            color: white;
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         body::before {
@@ -32,68 +38,57 @@
             z-index: 0;
         }
 
-        .container { max-width: 450px; margin: 0 auto; position: relative; z-index: 1; }
-
-        .header-profile { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; margin-top: 10px; }
-        .avatar { 
-            width: 60px; height: 60px; border-radius: 50%; 
-            background: linear-gradient(135deg, #00ffff, #ff00ff);
-            display: flex; align-items: center; justify-content: center;
-            border: 3px solid #00ffff;
-            box-shadow: 0 0 20px #00ffff;
-            font-weight: bold; font-size: 22px; color: #000;
+        /* ❄️ SNOW EFFECT */
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
         }
-        .name { 
-            font-size: 24px; font-weight: bold;
-            color: #00ffff;
-            text-shadow: 0 0 10px #00ffff;
+        .snowflake {
+            position: absolute;
+            color: #fff;
+            font-size: 16px;
+            animation: snowFall linear infinite;
+        }
+        @keyframes snowFall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0.1; }
         }
 
-        .status-card {
-            background: rgba(15, 15, 35, 0.85);
-            border-radius: 16px;
-            padding: 20px;
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .icon {
+            font-size: 80px;
             margin-bottom: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            animation: bounce 2s ease-in-out infinite;
         }
 
-        .status-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .online-dot { display: flex; align-items: center; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 8px #00ff88; animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0%,100% { box-shadow: 0 0 8px #00ff88; }
-            50% { box-shadow: 0 0 15px #00ff88, 0 0 25px #00ff88; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
-        .online-text { color: #00ff88; font-weight: 600; }
-        .country { display: flex; align-items: center; gap: 6px; }
-        .flag { font-size: 22px; }
-
-        .protocols-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 0; }
-        .proto-tag {
-            background: rgba(30, 30, 60, 0.6);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .vless { color: #ff6b8b; }
-        .vmess { color: #ffd166; }
-        .trojan { color: #c792ea; }
-        .ss { color: #80ffea; }
-        .darktunnel { color: #ffcc00; }
 
         h1 {
-            font-size: 48px;
+            font-size: 36px;
             font-weight: bold;
-            text-align: center;
-            margin: 20px 0;
-            background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
+            background: linear-gradient(90deg, #ffcc00, #ff8800, #ffcc00);
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            margin-bottom: 10px;
             animation: textGlow 3s linear infinite;
-            filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
         }
 
         @keyframes textGlow {
@@ -101,73 +96,61 @@
             100% { background-position: 200% center; }
         }
 
-        .info-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 25px; }
-        .info-tag {
-            background: rgba(30, 30, 60, 0.6);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 15px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            color: #00ffff;
-        }
-
-        .card {
-            background: rgba(15, 15, 35, 0.85);
-            border-radius: 16px;
-            padding: 20px;
+        h2 {
+            font-size: 22px;
+            color: #ffffff;
             margin-bottom: 20px;
-            border: 1px solid rgba(100, 100, 180, 0.2);
+            opacity: 0.9;
         }
 
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .card-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .badge { 
-            padding: 4px 12px; 
-            border-radius: 20px; 
-            font-size: 13px; 
-            font-weight: 600;
-        }
-        .badge-ws-tls { background: linear-gradient(90deg, #cc44ff, #6666ff); color: white; }
-        .badge-ws-tls-vmess { background: linear-gradient(90deg, #ffaa00, #ff8800); color: white; }
-        .badge-ws-tls-ss { background: linear-gradient(90deg, #00ccaa, #00ee88); color: white; }
-        .badge-darktunnel { background: linear-gradient(90deg, #ffcc00, #ff9900); color: #000; }
-        .badge-ssh-tnt { background: linear-gradient(90deg, #00b4d8, #0077b6); color: white; }
-        .badge-ssh-gcp { background: linear-gradient(90deg, #00cc66, #00ff99); color: #000; }
-
-        .link-box {
-            background: #001a0a;
-            padding: 14px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 10px;
-            word-break: break-all;
-            margin-bottom: 15px;
-            color: #00ff88;
-            border: 1px solid rgba(0, 255, 136, 0.25);
-            line-height: 1.5;
+        .status-box {
+            background: rgba(25, 25, 50, 0.7);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: 16px;
+            padding: 30px 25px;
+            margin-bottom: 30px;
         }
 
-        .copy-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #cc44ff, #00ccff);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 17px;
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+        .loading-dots span {
+            width: 10px;
+            height: 10px;
+            background: #ffcc00;
+            border-radius: 50%;
+            animation: dotPulse 1.4s infinite;
+        }
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .wait-text {
+            font-size: 18px;
+            color: #00ffff;
+            margin: 15px 0;
+        }
+
+        .owner {
+            font-size: 15px;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        .owner span {
+            color: #ffcc00;
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
         }
 
-        .copy-btn:active { transform: scale(0.97); }
-        .copy-btn.copied { background: linear-gradient(90deg, #00aa55, #00dd77); }
-
-        /* 📢 TELEGRAM BUTTON */
-        .telegram-section {
+        .telegram-link {
             margin-top: 30px;
-            text-align: center;
         }
+
         .telegram-btn {
             display: inline-flex;
             align-items: center;
@@ -176,218 +159,63 @@
             color: white;
             padding: 14px 28px;
             border-radius: 50px;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: bold;
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 0 15px rgba(0, 136, 204, 0.3);
         }
+
         .telegram-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 25px rgba(0, 136, 204, 0.5);
         }
-        .telegram-icon { font-size: 22px; }
-
-        /* 📝 NOTE SECTION */
-        .note-box {
-            margin-top: 25px;
-            padding: 16px;
-            background: rgba(0, 50, 80, 0.4);
-            border: 1px solid rgba(0, 200, 255, 0.3);
-            border-radius: 12px;
-            text-align: center;
-        }
-        .note-text {
-            color: #80ffff;
-            font-size: 15px;
-            font-weight: 500;
-            line-height: 1.6;
-        }
-        .note-highlight {
-            color: #00ffcc;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
+    <div id="snow-container"></div>
+
     <div class="container">
-        <div class="header-profile">
-            <div class="avatar">TF</div>
-            <div class="name">TeamFreenet</div>
+        <div class="icon">🔧</div>
+        <h1>MAINTENANCE BREAK</h1>
+        
+
+        <div class="status-box">
+            <p class="wait-text">Please wait for update</p>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="owner">Owner: <span>BOYSUPOTPH</span></p>
         </div>
 
-        <div class="status-card">
-            <div class="status-top">
-                <div class="online-dot">
-                    <span class="dot"></span>
-                    <span class="online-text">SERVER ONLINE</span>
-                </div>
-                <div class="country">
-                    <span class="flag">🇸🇬</span>
-                </div>
-            </div>
-            <div class="protocols-row">
-                <span class="proto-tag vless">● VLESS GCP 1</span>
-                <span class="proto-tag vmess">● IWANTTV 1</span>
-                <span class="proto-tag trojan">● Trojan GCP 1</span>
-                <span class="proto-tag ss">● SSH 4</span>
-                <span class="proto-tag ss">● DATAMAX 1</span>
-                <span class="proto-tag darktunnel">● DarkTunnel 1</span>
-            </div>
-        </div>
-
-        <h1>TeamFreenet</h1>
-
-        <div class="info-tags">
-            <span class="info-tag">● 5 Protocols</span>
-            <span class="info-tag">Port 443/80</span>
-            <span class="info-tag">WebSocket</span>
-            <span class="info-tag">TLS</span>
-        </div>
-
-        <!-- VLESS GCP TNT NOLOAD -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 VLESS GCP </div>
-                <span class="badge badge-ws-tls">WS · TLS</span>
-            </div>
-            <div class="link-box" id="vlessText">
-vless://123e4567-e89b-12d3-a456-426655440000@vpn.googleapis.com:443?encryption=none&type=ws&host=master3-625344316023.asia-southeast1.run.app&headerType=none&path=%2Fmaster-vless&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Vless
-            </div>
-            <button class="copy-btn" onclick="copyText('vlessText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- NETMOD SYNA DATAMAX -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 NETMOD SYNA DATAMAX</div>
-                <span class="badge badge-ws-tls-vmess">SSH · 443/80</span>
-            </div>
-            <div class="link-box" id="vmessText">
-nm-ssh://tQ4hO24NSwWzMshK68Hr3+9fite/OAinmKBs8SqBj2LNPtG7/qx42JIzrgbuFIVyXktxttItzaIpG91ZMHVYdX9H5C0ggM+UBPnNUZMTlSLuYVBGRHCV9KM1AGr7ZBEktjliXdwETzmsyZG/HUjiEIVO+383SAuI5rov+LBCq4G8iLkdRyrMN9KTodpvNnL/YWJxFiQ8J1LOXFf445dzmEbIRwuJQIumoHAQ0y54CDCTbN3bdZ12xopKCUHwiuW+L9HaG/LMlrW6bwl1Tv3wWP1LYQ9cXWdxKkBFQ2xM2ru/MpWo8WO9tEZpnQ9mqBEHzHWbzEoauIUevLQ1K7B2zDAvkHuYUU6GluGPTfkIMdkYxAxQBJo9uGXs/z4xaNazdf3IRnFr1fN7T5fkem0zWlVc22qw4nAm79PrcyTJvWHPv329KuU6Qcc5YotoKmySKcdpJs+pv2NiuzaMRQ79NS7tvUrE+H155Y8APMPwL0rV2MfZrr1U1Aia7hgBBxU3B0a5tflUaLh5X9zzVNbRAAZUDaJFVNWsoar6+Nk4Xyv9bmcxFypIAtNgNBVyQ7/d5gNSEcwGelkc9QtJSGY4GZG1ZXhCrZ+1a+I3QxO7tbD+UnUp7gXV+hNkaR68wGGD9lHsb02GAYXTovZd2rE9E2VHXE1cVb6nBnrZAo7M5zKUsGmsLKv3jYUhKiKTwXojuUcEKMsmSsLFfu/jHTSRWfPgRz7mqMbx8RuzCpgzysUirQKgqywIyVGMa2K6d3f19DFBNFuUJCcZLaTloSDj4Oz+/6MBQ84+VyO5Uzqw2+UOwmATGoBrrWSCAbgz3Nwr
-            </div>
-            <button class="copy-btn" onclick="copyText('vmessText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- TROJAN GCP -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 TROJAN GCP </div>
-                <span class="badge badge-ws-tls">WS · TLS</span>
-            </div>
-            <div class="link-box" id="trojanText">
-trojan://Billy@vpn.googleapis.com:443?type=ws&host=master-625344316023.asia-east1.run.app&headerType=none&path=%2Fmaster-trojan&security=tls&sni=firebaseremoteconfigrealtime.googleapis.com#Trojan%20%20
-            </div>
-            <button class="copy-btn" onclick="copyText('trojanText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- NETMOD SYNA IWANTTV -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 NETMOD SYNA IWANTTV</div>
-                <span class="badge badge-ws-tls-ss">WS.TLS</span>
-            </div>
-            <div class="link-box" id="ssText">
-nm-vless://DkF8nBQJad+AsabWEOEOQeeJrNJ+U0HZw6tvup3nJe8+MyNzqvDpxFKlzGVFB0eCXud1zZjGsaPNGKL+Xo7WNz3rwbT048UMssJ7NlIyCZP5vfZsKCjHuvJbS/0DWJ82cf9t9131dVw0soJeEsphgCosU9MSXk/GUCa7ASAjintV6/0TrBCj6uU8w7N+BXMyCqvUe57d4lkqkBv251uOohXWbGNC+7TLOxjhSby3icyGw9ZDvCLPvJCMaI0hV203Bn4d6gII6R3HzLWkahkdWBVs+iOHDkWcP4MQ+Skh54bYxLDONKmNcznKqrvCsR5w2n6zI6Yb4zrHz7y4JtnVn260GS5NJpr9C7NSprOaEt4=
-            </div>
-            <button class="copy-btn" onclick="copyText('ssText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- NETMOD SYNA CF STS -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 NETMOD SYNA CF STS</div>
-                <span class="badge badge-ws-tls-ss">SSH · 443/80</span>
-            </div>
-            <div class="link-box" id="cfstsText">
-ssh://primetech:primetech@www.mypocketdoctor.com:80?u+fRSFV7ZzQTd2kgWG+TYwyOU6GD+h5lFt/L8DoHMpIHl/GyXRQVayvTw7BFsPuoXqHE9dswLuALeabPrg16Ofy+Y0ln1QKp2bF3LtVYE0eeE0rcYmiPwR2eEkUcYi6alcXakHl8lCeLWjEcpF322VzVzSs3qTU5VUiKGOvGdOmHaYuMoh9HXV9tyIQtt6t3ZpvFRWhdk4qs8J8rvgwuCpztMx6DpYzXqOugSJATsh3eh+PtEjWtgXCW61V6Jn/bFpxHzRZjsZy+9DofzCklZfuTJtXViUhY67V4NAqZT/a3N6P6eSqVnMuPoS8QqPFIWsybTsXmXYQXTiq4lRhN5xUpoM21psW+uW1x5kMt556YMhWVS2KUuY4hgnSD0C5KJ3hBc6vyN5J1Msfcpi89sxMq+EWTTAhmSHlGkpCrm3ExvRp/YwsCqXQKWINquTuAMIErTX6TqPManGVLhstCSfILdEJfxh0xV9b1rOW4CtB49lMI+Sx3zsc0adMhd3K7bQkEyrF+kz9a9g30iaIHbXv34JUy/SDbw0GTYbqtFXe45ufYkiZqe8Dni6LRfbKUGxQ3M8uAhL9wnOSfmLPI4iwb41xzoSQCfpABX20229Q=#TNT%20NOLOAD%20BOYSUPOTPH
-            </div>
-            <button class="copy-btn" onclick="copyText('cfstsText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- SAYA ALL 99 TNT NO BAWAS -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 NETMOD SYNA SAYA ALL 99 TNT</div>
-                <span class="badge badge-ssh-tnt">SSH · 80</span>
-            </div>
-            <div class="link-box" id="sayaText">
-nm-ssh://f8fb8QIv6KOMi2m+n9hEifEJvRz9Qq+A/PGH+znHlvgaDP02MY3f7pUeTv/BlGYiz1dITxk4NIXwKrGihcVP0o8sm217rVVoRAO0YkIpuTIu1d4wItLuvWHkD9Q/5qTEUkTJw7jhCDzG/LY7rqoiKfe+vJY6npcyO1nKzI8eDtdoxauQGAWnOUOJ1Mip8g1HS8yaTQSjhyk9ZXc7ky3M8txv5PrONNLNhJxMMEU3OnVvp+fuDndtzQyh2O4WyEOPvDhK/YKgpJdqCFShH3qw4a9FvYyuPIgWtCzyarIv4Oz5QwYLj9dedwEtr+JdzXmoh8SiRAwb9j8aZPbpkoIuKUmPlxGW7dh629TKAhWhzmAIgdCFqKrrbvPXW3HRKBQVvRqyqHJPBIlZxHhajbAq7WXPWuaTI02RPLADRZHwutnQz4NDsgc49C8QxQJdnsXgMM2CU1TXshHhSsksR12NGTOUHCiecCs2Y7Xsg7USo0MS9HAsi7Yd4R8WxS7Gx1ePM1XchvrveliybUCKfCSgJvlJVTndl/hffbJvP6C21t56IC3cwpC6akLqo7lJ4XK9NMmD1lqoB8I/E+Tde3BC6DK7gPX62vCtr5+g3Z7CnSju/VYCCJXtt7t2ty/yjaLTo2gVm4ocl70kw9uOclT2503KikkBlxuANjHHh+5LVv4QUkI90BxlVhfoOc2M8CJIbqyfqJisMO1qHV6ySNQzJ4oCb9uzr1DI9o5ZbcMZBkGdiLvu4sc9e5qSzO/EGPIxr4IcAYSTOGX/eGLAeXkcM//+jvYKjJMu7dtT7r27mRM=
-            </div>
-            <button class="copy-btn" onclick="copyText('sayaText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- 🌐 SSH GCP ALL CONNECTION -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 SSH GCP ALL CONNECTION</div>
-                <span class="badge badge-ssh-gcp">SSH · GCP</span>
-            </div>
-            <div class="link-box" id="sshGcpText">
-ssh://master:boysupot@vpn.googleapis.com:443?KUX3sw04Vw3D4VZXnUUdx5w2olLTqhuGQNU7herX/y1+G4NHVbZAqskX3V0NNf7dkKWRsCBsXTG3qdxBQSwIR8zy1Hai/ilK8eQb2RlN/GcCNd0P3upZCxoih2cq3UrcL1YUqR6GgFNirQH8uavnX9k9uOo2SjMRFXgcDbb2JegIAwzr+SrFYDhLcpLYDO31DJy37v0gvmhcnKnHkqDjNYy/oPY+wukc2+gHUbWC8AXfKNWl7uJZIoKwR59Fk4E//i0PXb/pvwtFTUgJJl4cH6e7GNUM3g1Id3I03TucmSEUeQq/LOBbcQ4d0LbZMp4woUGMJMWdEEL9I0tjEKN+Eg==#BOYSUPOTPH%20GCP%20SSH%201
-              </div>
-            <button class="copy-btn" onclick="copyText('sshGcpText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- 🌐 DARKTUNEL -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🌐 DARKTUNNEL GTM Free</div>
-                <span class="badge badge-darktunnel">VLESS · INJECT</span>
-            </div>
-            <div class="link-box" id="darktunnelText">
-darktunnel://eyJ0eXBlIjoiVkxFU1MiLCJuYW1lIjoiR1RNIGZyZWUiLCJ2bGVzc1R1bm5lbENvbmZpZyI6eyJ2MnJheUNvbmZpZyI6eyJob3N0IjoiZ3Byby1pYW0taW50ZXJuYWwuZ2Nhc2guY29tIiwicG9ydCI6NDQzLCJ1dWlkIjoiMTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjU1NDQwMDAwIiwic2VydmVyTmFtZUluZGljYXRpb24iOiJwZTEuYmxvZ2Jsb2cuY29tIiwid3NQYXRoIjoiL21hc3Rlci12bGVzcyIsIndzSGVhZGVySG9zdCI6Im1hc3Rlci0zMDk5Mjc4NDI5MzYuYXNpYS1zb3V0aDEucnVuLmFwcCJ9LCJpbmplY3RDb25maWciOnsiZW5hYmxlZCI6dHJ1ZSwibW9kZSI6IlBST1hZIiwicHJveHlIb3N0IjoiaW9yZy1mYmEtZWRnZS1zaHYtMDItY2N1MS5mYWNlYm9vay5jb20iLCJwYXlsb2FkIjoiQ09OTkVDVCBwZTEuYmxvZ2Jsb2cuY29tOjQ0MyBIVFRQLzEuMVtjcmxmXXgtY29ubmVjdGVkLXRvOiBpb3JnLWZiYS1lZGdlLXNodi0wMi1jY3UxLmZhY2Vib29rLmNvbVtjcmxmXXVzZXItYWdlbnQ6IEZCQVYvMC4wLjBbY3JsZl14LWlvcmctYnNpZDogQEVNQUxbY3JsZl1bY3JsZl0ifX19
-            </div>
-            <button class="copy-btn" onclick="copyText('darktunnelText', this)">📋 Copy Link</button>
-        </div>
-
-        <!-- 📝 NOTE SECTION -->
-        <div class="note-box">
-            <p class="note-text">
-                <span class="note-highlight">📌 Note:</span><br>
-                Unlimited GCP & WebSocket Protocol<br>
-                <span class="note-highlight">Powered by BOYSUPOTPH 💙</span>
-            </p>
-        </div>
-
-        <!-- 📢 TELEGRAM GROUP BUTTON -->
-        <div class="telegram-section">
+        <div class="telegram-link">
             <a href="https://t.me/+7JVXaDEgf2I4NWZl" target="_blank" class="telegram-btn">
-                <span class="telegram-icon">📢</span>
-                Join Our Telegram Group
+                📢 Join Our Telegram for Updates
             </a>
         </div>
     </div>
 
     <script>
-        function copyText(elementId, btn) {
-            try {
-                var text = document.getElementById(elementId).innerText.trim();
-                var temp = document.createElement('textarea');
-                temp.value = text;
-                temp.style.position = 'fixed';
-                temp.style.left = '-9999px';
-                temp.style.top = '0';
-                document.body.appendChild(temp);
-                temp.focus();
-                temp.select();
-                var success = document.execCommand('copy');
-                document.body.removeChild(temp);
-                
-                if (success) {
-                    btn.innerText = '✅ COPIED!';
-                    btn.classList.add('copied');
-                    setTimeout(function() {
-                        btn.innerText = '📋 Copy Link';
-                        btn.classList.remove('copied');
-                    }, 2000);
-                } else {
-                    alert('Hindi nakopya — i-highlight at copy na lang nang kamay');
-                }
-            } catch (e) {
-                alert('Error: ' + e.message);
+        // ❄️ FALLING SNOW
+        function startSnow() {
+            const container = document.getElementById('snow-container');
+            const flakes = ['❄', '❅', '❆', '✻', '✼', '❉'];
+            for (let i = 0; i < 40; i++) {
+                const snow = document.createElement('span');
+                snow.className = 'snowflake';
+                snow.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+                snow.style.left = Math.random() * 100 + '%';
+                snow.style.fontSize = (Math.random() * 10 + 8) + 'px';
+                snow.style.opacity = Math.random() * 0.5 + 0.3;
+                const speed = Math.random() * 6 + 6;
+                snow.style.animationDuration = speed + 's';
+                snow.style.animationDelay = Math.random() * speed + 's';
+                container.appendChild(snow);
             }
         }
+        startSnow();
     </script>
 </body>
 </html>
